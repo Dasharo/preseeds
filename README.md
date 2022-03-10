@@ -10,9 +10,10 @@ Start a http server from the terminal:
 python -m http.server 8080
 ```
 
-### Ubuntu
+### Ubuntu 20.04
 
-Append the following to the kernel commandline:
+Boot the Ubuntu Server 20.04 ISO and append the following to the kernel
+commandline before launching the installer:
 
 ```
 autoboot ds=nocloud-net;s=http:[your ip]:8080/ubuntu/

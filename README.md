@@ -15,11 +15,11 @@ python -m http.server 8080
 Append the following to the kernel commandline:
 
 ```
-autoboot ds=nocloud-net;s=http:[your ip]:8080/
+autoboot ds=nocloud-net;s=http:[your ip]:8080/ubuntu/
 ```
 
 For GRUB, add a backslash before the semicolon like so:
 
 ```
-autoboot ds=nocloud-net;s=http:[your ip]:8080/ubuntu/
+autoboot ds=nocloud-net\;s=http:[your ip]:8080/ubuntu/
 ```

@@ -52,7 +52,7 @@ Identify the USB stick:
 ```bash
 $ lsblk
 NAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
-sda                         8:0    1   3.7G  0 disk              #<- Our USB stick
+sda                         8:0    1   3.7G  0 disk              # <- Our USB stick
 ├─sda1                      8:1    1   731M  0 part
 └─sda2                      8:2    1    76M  0 part
 nvme0n1                   259:0    0 238.5G  0 disk

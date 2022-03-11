@@ -73,6 +73,9 @@ nvme1n1                   259:2    0 953.9G  0 disk
 
 Write the created image to the USB stick:
 
+*Warning: Triple-check the disk name. If you enter a wrong name here, you
+may overwrite your OS or important data*
+
 ```bash
 $ sudo dd if=seed.iso of=/dev/sdX bs=4M status=progress conv=fsync
 ```

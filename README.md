@@ -17,7 +17,10 @@ $ python -m http.server 8080
 | Ubuntu | [Yes](#via-http)   | [Yes](#via-netbootxyz)   | [Yes](#locally)   |
 | Debian | [Yes](#via-http-1) | [Yes](#via-netbootxyz-1) | [Yes](#locally-1) |
 
-### Ubuntu 20.04
+### Ubuntu
+
+Ubuntu preseeds are located in the `ubuntu/` directory.
+Ubuntu 20.04 was tested, but other versions may be compatible.
 
 #### Via HTTP
 

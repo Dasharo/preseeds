@@ -78,6 +78,9 @@ may overwrite your OS or important data*
 
 ```bash
 $ sudo dd if=seed.iso of=/dev/sdX bs=4M status=progress conv=fsync
+                                ^
+                                |
+                     Enter drive letter here
 ```
 
 Insert the USB stick along with the Ubuntu Server installer into the DUT and

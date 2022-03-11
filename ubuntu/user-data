@@ -19,7 +19,7 @@ autoinstall:
           uri: http://pl.archive.ubuntu.com/ubuntu
     sources:
       docker:
-        source: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+        source: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
         key: |
           -----BEGIN PGP PUBLIC KEY BLOCK-----
 

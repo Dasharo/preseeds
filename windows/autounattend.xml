@@ -129,8 +129,8 @@
                 <LocalAccounts>
                     <LocalAccount wcm:action="add">
                         <Password>
-                            <Value>bgBvAHYAYQBjAHUAcwB0AG8AbQBQAGEAcwBzAHcAbwByAGQA</Value>
-                            <PlainText>false</PlainText>
+                            <Value>windows</Value>
+                            <PlainText>true</PlainText>
                         </Password>
                         <DisplayName>user</DisplayName>
                         <Group>administrators</Group>
@@ -151,8 +151,8 @@
             </OOBE>
             <AutoLogon>
                 <Password>
-                    <Value>bgBvAHYAYQBjAHUAcwB0AG8AbQBQAGEAcwBzAHcAbwByAGQA</Value>
-                    <PlainText>false</PlainText>
+                    <Value>windows</Value>
+                    <PlainText>true</PlainText>
                 </Password>
                 <Enabled>true</Enabled>
                 <Username>user</Username>
@@ -173,7 +173,7 @@
                     <RequiresUserInput>false</RequiresUserInput>
                     <Order>3</Order>
                     <Description>Installs Windows Updates</Description>
-                    <CommandLine>powershell.exe -ExecutionPolicy Bypass Install-PackageProvider NuGet -Force; Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; Install-Module PSWindowsUpdate; Get-WindowsUpdate -AcceptAll -Install -AutoReboot;</CommandLine>
+                    <CommandLine>powershell.exe -ExecutionPolicy Bypass Install-PackageProvider NuGet -Force; Register-PSRepository -Default -Verbose; Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; Install-Module PSWindowsUpdate; Get-WindowsUpdate -AcceptAll -Install -AutoReboot;</CommandLine>
                 </SynchronousCommand>
             </FirstLogonCommands>
         </component>

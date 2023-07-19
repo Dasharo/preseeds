@@ -165,13 +165,21 @@
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
+                    <CommandLine>reg add &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server&quot; /v fDenyTSConnections /t REG_DWORD /d 0 /f</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>3</Order>
+                    <CommandLine>netsh advfirewall firewall set rule group="remote desktop" new enable=Yes</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>4</Order>
                     <Description>Setups ssh</Description>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>powershell.exe -ExecutionPolicy Bypass Write-Host "Setting up ssh..."; Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0; Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0; Get-Service -Name ssh-agent | Set-Service -StartupType Manual; Start-Service ssh-agent; Get-Service -Name ssh-agent | Set-Service -StartupType Automatic; Start-Service sshd; Get-Service -Name sshd | Set-Service -StartupType Automatic; New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22; New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -PropertyType String -Force;</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <RequiresUserInput>false</RequiresUserInput>
-                    <Order>3</Order>
+                    <Order>5</Order>
                     <Description>Installs Windows Updates</Description>
                     <CommandLine>powershell.exe -ExecutionPolicy Bypass Install-PackageProvider NuGet -Force; Register-PSRepository -Default -Verbose; Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; Install-Module PSWindowsUpdate; Get-WindowsUpdate -AcceptAll -Install -AutoReboot;</CommandLine>
                 </SynchronousCommand>

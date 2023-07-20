@@ -10,11 +10,12 @@ iso_extr_path=""
 while getopts "hi:e:o:" arg; do
     case "${arg}" in
         h)
-            echo "This is help"
+            echo "Help:"
             echo "    -h            shows help"
             echo "    -i path       point the location of installation iso instead of downloading it"
             echo "    -e path       point the location of extracted iso"
             echo "    -o file_name  specify the output filename"
+            exit 0
             ;;
         i)
             if ! [ -f "$OPTARG" ]; then

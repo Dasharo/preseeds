@@ -6,13 +6,21 @@ main_preseed="main.cfg"
 output_name="ubuntu-auto.iso"
 isopath=""
 iso_extr_path=""
+partitioning=1
 
-while getopts "hi:e:o:" arg; do
+while getopts "hi:e:o:p" arg; do
     case "${arg}" in
         h)
+            echo "This script automatically downloads Ubuntu release
+22.04.2, extracts it, injects preseeds and packages the new
+iso image. General preseed configuration can be found in
+the ubuntu/main.cfg file, if necessary, it can be edited."
             echo "Help:"
             echo "    -h            shows help"
-            echo "    -i path       point the location of installation iso instead of downloading it"
+            echo "    -p            make custom partitioning during \
+the installation"
+            echo "    -i path       point the location of installation \
+iso instead of downloading it"
             echo "    -e path       point the location of extracted iso"
             echo "    -o file_name  specify the output filename"
             exit 0
@@ -36,11 +44,23 @@ while getopts "hi:e:o:" arg; do
         o)
             output_name=$OPTARG
             ;;
+        p)
+            partitioning=0
+            ;;
         *)
             echo "Unrecognized argument. Use -h to get help"
+            exit 3
             ;;
     esac
 done
+
+# check prerequisities
+if ! xorriso --version &> /dev/null
+then
+    echo "xorriso could not be found"
+    exit 4
+fi
+
 
 # prepare temp folder
 
@@ -69,7 +89,10 @@ sed -i 's/Try or Install Ubuntu/Perform automatic installation/' "$iso_extr_path
 
 # inject preseed
 echo "Injecting preseed..."
-cat $partitioning_preseed >> "$iso_extr_path/preseed/ubuntu.seed"
+# preseed partitioning only if argument -p was not given
+if [ $partitioning -eq 1 ]; then
+    cat $partitioning_preseed >> "$iso_extr_path/preseed/ubuntu.seed"
+fi
 cat $main_preseed >> "$iso_extr_path/preseed/ubuntu.seed"
 
 # update checksums

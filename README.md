@@ -21,6 +21,8 @@ $ python -m http.server 8080
 
 `ubuntu/create_image.sh` script automatically downloads Ubuntu release 22.04.2, extracts it, injects preseeds and packages the new iso image. General preseed configuration can be found in the `ubuntu/main.cfg` file, if necessary, it can be edited. The script also takes arguments if the original Ubuntu iso image has already been downloaded or extracted.
 
+**Warning!** This script by default wipes the first disks and setups ubuntu partitions! If you want custom partitioning run the program with `-p` argument.
+
 #### Exemplary usages:
 Does everything and saves the image as `ubuntu-auto.iso` in the script execution directory:
 ```
@@ -30,9 +32,9 @@ Extracts downloaded image and saves modified image (it is important that the ima
 ```
 ./ubuntu/create_image.sh -i ~/Downloads/ubuntu-22.04.2-desktop-amd64.iso
 ```
-Saves modified file as `ubuntu.iso`:
+Saves modified image as `ubuntu.iso`:
 ```
-./ubuntu/create_image.sh -o ubuntu.io
+./ubuntu/create_image.sh -o ubuntu.iso
 ```
 
 Thre is a help if needed:

@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-iso_download_link="https://releases.ubuntu.com/22.04.2/ubuntu-22.04.2-desktop-amd64.iso"
+ISO_DOWNLOAD_LINK="https://releases.ubuntu.com/22.04.2/ubuntu-22.04.2-desktop-amd64.iso"
 partitioning_preseed="partitioning.cfg"
 main_preseed="main.cfg"
 output_name="ubuntu-auto.iso"
@@ -69,18 +69,18 @@ tmpdir=$(mktemp -d)
 # download iso image
 if [[ $isopath == "" ]]; then
     echo "Downloading Ubuntu Desktop 22.04.2 image..."
-    wget -O "$tmpdir/ubuntu.iso" $iso_download_link
+    wget -O "$tmpdir/ubuntu.iso" $ISO_DOWNLOAD_LINK
     isopath="$tmpdir/ubuntu.iso"
-fi;
+fi
 
 # extract iso contents
 if [[ $iso_extr_path == "" ]]; then
     echo "Extracting iso contents..."
     iso_extr_path="$tmpdir/extracted"
     xorriso -osirrox on -indev "$isopath" -extract / "$iso_extr_path" &>/dev/null
-    # make iso contents modificable
+    # make iso contents modifiable
     chmod -R u+w "$iso_extr_path"
-fi;
+fi
 
 # set up kernel to use preseed
 sed -i -e 's,file=/cdrom/preseed/ubuntu.seed maybe-ubiquity quiet splash,file=/cdrom/preseed/ubuntu.seed auto=true priority=critical boot=casper automatic-ubiquity quiet splash noprompt noshell,g' "$iso_extr_path/boot/grub/grub.cfg"
@@ -134,6 +134,5 @@ $iso_extr_path
 
 echo "Removing temporary files..."
 rm -rf $tmpdir
-
 echo "Done. Image file saved as: $output_name"
 

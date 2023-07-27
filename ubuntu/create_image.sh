@@ -83,8 +83,8 @@ if [[ $iso_extr_path == "" ]]; then
 fi
 
 # set up kernel to use preseed
-sed -i -e 's,file=/cdrom/preseed/ubuntu.seed maybe-ubiquity quiet splash,file=/cdrom/preseed/ubuntu.seed auto=true priority=critical boot=casper automatic-ubiquity quiet splash noprompt noshell,g' "$iso_extr_path/boot/grub/grub.cfg"
-sed -i -e 's,file=/cdrom/preseed/ubuntu.seed maybe-ubiquity iso-scan/filename=${iso_path} quiet splash,file=/cdrom/preseed/ubuntu.seed auto=true priority=critical boot=casper automatic-ubiquity quiet splash noprompt noshell,g' "$iso_extr_path/boot/grub/loopback.cfg"
+sed -i -e 's,file=/cdrom/preseed/ubuntu.seed maybe-ubiquity quiet splash,file=/cdrom/preseed/ubuntu.seed iso-scan/filename=${iso_path} auto=true priority=critical boot=casper automatic-ubiquity quiet splash noprompt noshell,g' "$iso_extr_path/boot/grub/grub.cfg"
+sed -i -e 's,file=/cdrom/preseed/ubuntu.seed maybe-ubiquity iso-scan/filename=${iso_path} quiet splash,file=/cdrom/preseed/ubuntu.seed iso-scan/filename=${iso_path} auto=true priority=critical boot=casper automatic-ubiquity quiet splash noprompt noshell,g' "$iso_extr_path/boot/grub/loopback.cfg"
 sed -i 's/Try or Install Ubuntu/Perform automatic installation/' "$iso_extr_path/boot/grub/grub.cfg"
 
 # inject preseed

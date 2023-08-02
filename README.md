@@ -19,75 +19,28 @@ $ python -m http.server 8080
 
 ### Ubuntu
 
-Ubuntu preseeds are located in the `ubuntu/` directory.
-Ubuntu 20.04 was tested, but other versions may be compatible.
+`ubuntu/create_image.sh` script automatically downloads Ubuntu release 22.04.2, extracts it, injects preseeds and packages the new iso image. General preseed configuration can be found in the `ubuntu/main.cfg` file, if necessary, it can be edited. The script also takes arguments if the original Ubuntu iso image has already been downloaded or extracted.
 
-#### Via HTTP
+**Warning!** This script by default wipes the first disks and setups ubuntu partitions! If you want custom partitioning run the program with `-p` argument.
 
-Boot the Ubuntu Server 20.04 ISO and append the following to the kernel
-commandline before launching the installer:
-
+#### Exemplary usages:
+Does everything and saves the image as `ubuntu-auto.iso` in the script execution directory:
 ```
-autoinstall ds=nocloud-net;s=http:[your ip]:8080/ubuntu/
+./ubuntu/create_image.sh
 ```
-
-For GRUB, add a backslash before the semicolon like so:
-
+Extracts downloaded image and saves modified image (it is important that the image is downloaded from [here](https://ubuntu.man.lodz.pl/ubuntu-releases/22.04.2/ubuntu-22.04.2-desktop-amd64.iso), otherwise it may work incorrectly):
 ```
-autoinstall ds=nocloud-net\;s=http:[your ip]:8080/ubuntu/
+./ubuntu/create_image.sh -i ~/Downloads/ubuntu-22.04.2-desktop-amd64.iso
 ```
-
-#### Via netboot.xyz
-
-Add the following snippet to your netboot.xyz Ubuntu netboot entry:
-
+Saves modified image as `ubuntu.iso`:
 ```
-set install_params autoinstall ds=nocloud-net;s=http:[your ip]:8080/ubuntu/
+./ubuntu/create_image.sh -o ubuntu.iso
 ```
 
-#### Locally
-
-Autoinstall can also be used locally, by putting the preseed config into a
-separate drive (e.g. USB stick)
-
-Install cloud image utilities and create the image:
-
-```bash
-$ sudo apt install cloud-image-utils
-$ cloud-localds ~/seed.iso ubuntu/user-data ubuntu/meta-data
+Thre is a help if needed:
 ```
-
-Identify the USB stick:
-
-```bash
-$ lsblk
-NAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
-sda                         8:0    1   3.7G  0 disk              # <- Our USB stick
-├─sda1                      8:1    1   731M  0 part
-└─sda2                      8:2    1    76M  0 part
-nvme0n1                   259:0    0 238.5G  0 disk
-└─nvme0n1p1               259:1    0 238.5G  0 part
-  ├─LVMGroup-Win10        254:0    0   125G  0 lvm
-  └─LVMGroup-Ubuntu_3mdeb 254:1    0   100G  0 lvm
-nvme1n1                   259:2    0 953.9G  0 disk
-├─nvme1n1p1               259:3    0     1G  0 part /boot
-└─nvme1n1p2               259:4    0 952.9G  0 part /
+./ubuntu/create_image.sh -h
 ```
-
-Write the created image to the USB stick:
-
-*Warning: Triple-check the disk name. If you enter a wrong name here, you
-may overwrite your OS or important data*
-
-```bash
-$ sudo dd if=seed.iso of=/dev/sdX bs=4M status=progress conv=fsync
-                                ^
-                                |
-                     Enter drive letter here
-```
-
-Insert the USB stick along with the Ubuntu Server installer into the DUT and
-power it on.
 
 ### Debian
 

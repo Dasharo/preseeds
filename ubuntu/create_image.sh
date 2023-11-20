@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-ISO_DOWNLOAD_LINK="https://releases.ubuntu.com/22.04.2/ubuntu-22.04.2-desktop-amd64.iso"
-PARTITIONING_PRESEED="PARTITIONING.cfg"
+set -euo pipefail
+
+UBUNTU_VERSION="22.04.3"
+ISO_DOWNLOAD_LINK="https://ubuntu.task.gda.pl/ubuntu-releases/${UBUNTU_VERSION}/ubuntu-${UBUNTU_VERSION}-desktop-amd64.iso"
+PARTITIONING_PRESEED="partitioning.cfg"
 MAIN_PRESEED="main.cfg"
-OUTPUT_ISO="ubuntu-auto.iso"
+OUTPUT_ISO="ubuntu-auto-${UBUNTU_VERSION}.iso"
 ISO_PATH=""
 ISO_EXTR_PATH=""
 PARTITIONING=1
@@ -12,7 +15,7 @@ while getopts "hi:e:o:p" arg; do
     case "${arg}" in
         h)
             echo "This script automatically downloads Ubuntu release
-22.04.2, extracts it, injects preseeds and packages the new
+${UBUNTU_VERSION}, extracts it, injects preseeds and packages the new
 iso image. General preseed configuration can be found in
 the ubuntu/main.cfg file, if necessary, it can be edited."
             echo "Help:"
@@ -69,7 +72,7 @@ tmpdir=$(mktemp -d)
 # download iso image
 if [[ $ISO_PATH == "" ]]; then
     ISO_PATH="ubuntu.iso"
-    echo "Downloading Ubuntu Desktop 22.04.2 image..."
+    echo "Downloading Ubuntu Desktop ${UBUNTU_VERSION} image..."
     wget -O "$ISO_PATH" $ISO_DOWNLOAD_LINK
 fi
 
@@ -77,7 +80,7 @@ fi
 if [[ $ISO_EXTR_PATH == "" ]]; then
     echo "Extracting iso contents..."
     ISO_EXTR_PATH="$tmpdir/extracted"
-    xorriso -osirrox on -indev "$ISO_PATH" -extract / "$ISO_EXTR_PATH" &>/dev/null
+    xorriso -osirrox on -indev "$ISO_PATH" -extract / "$ISO_EXTR_PATH" #&>/dev/null
     # make iso contents modifiable
     chmod -R u+w "$ISO_EXTR_PATH"
 fi
@@ -104,14 +107,19 @@ echo "$md5  ./boot/grub/loopback.cfg" >> "$ISO_EXTR_PATH//md5sum.txt"
 
 # fetch partitioning data from iso
 dd if=$ISO_PATH bs=1 count=432 of="$tmpdir/boot_hybrid.img"
-dd if=$ISO_PATH bs=512 skip=9613460 count=10068 of="$tmpdir/efi.img"
+EFI_START=$(xorriso -indev ${ISO_PATH} -report_system_area 2> /dev/null | grep "GPT start and size :   2" | cut -d ' ' -f 10)
+EFI_SIZE=$(xorriso -indev ${ISO_PATH} -report_system_area 2> /dev/null | grep "GPT start and size :   2" | cut -d ' ' -f 12)
+dd if=$ISO_PATH bs=512 skip=${EFI_START} count=${EFI_SIZE} of="$tmpdir/efi.img"
+
+# fetch Vulume Creation Date
+CREATION_DATE="$(dd if=$ISO_PATH bs=1 skip=33581 count=17 2>/dev/null | hexdump -e  "16 \"%_p\" \"\\n\"" | head -n1)"
 
 # save modification to new iso file
 echo "Saving modified iso..."
 xorriso -as mkisofs -r \
 -V 'Ubuntu Auto Installer' \
 -o $OUTPUT_ISO \
---modification-date='2023022304134400' \
+--modification-date="${CREATION_DATE}" \
 --grub2-mbr "$tmpdir/boot_hybrid.img" \
 --protective-msdos-label \
 -partition_cyl_align off \
@@ -129,10 +137,9 @@ xorriso -as mkisofs -r \
 -eltorito-alt-boot \
 -e '--interval:appended_partition_2_start_2403365s_size_10068d:all::' \
 -no-emul-boot \
--boot-load-size 10068 \
+-boot-load-size ${EFI_SIZE} \
 $ISO_EXTR_PATH
 
 echo "Removing temporary files..."
 rm -rf $tmpdir
 echo "Done. Image file saved as: $OUTPUT_ISO"
-

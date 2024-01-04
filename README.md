@@ -23,11 +23,11 @@ $ python -m http.server 8080
 * Download the newest Windows Disk Image (ISO) from [official
   website](https://www.microsoft.com/en-us/software-download/)
 * Use [WoeUSB](https://github.com/WoeUSB/WoeUSB) to make a bootable USB, then
-the USB can be modified under Linux Example command:
+the USB can be modified under Linux. Example command:
     ```bash
     sudo woeusb --device Win11_23H2_EnglishInternational_x64v2.iso /dev/sd[drive letter]
     ```
-* Copy [autounatted.xml](./windows/autounattend.xml) to bootable USB disk
+* Copy [autounattend.xml](./windows/autounattend.xml) to bootable USB disk
 * Insert the USB into the platform and boot from the USB
 * Windows will install automatically and configure
 * If there are any problems during installation, you can make sure all steps
@@ -58,23 +58,23 @@ partitions! If you want custom partitioning run the program with `-p` argument.
 #### Exemplary usages:
 Does everything and saves the image as `ubuntu-auto.iso` in the script execution
 directory:
-```
+```bash
 ./ubuntu/create_image.sh
 ```
 Extracts downloaded image and saves modified image (it is important that the
-image is downloaded from
-[here](https://ubuntu.man.lodz.pl/ubuntu-releases/22.04.2/ubuntu-22.04.2-desktop-amd64.iso),
+image is
+[22.04.2](https://old-releases.ubuntu.com/releases/22.04/ubuntu-22.04.2-desktop-amd64.iso),
 otherwise it may work incorrectly):
-```
+```bash
 ./ubuntu/create_image.sh -i ~/Downloads/ubuntu-22.04.2-desktop-amd64.iso
 ```
 Saves modified image as `ubuntu.iso`:
-```
+```bash
 ./ubuntu/create_image.sh -o ubuntu.iso
 ```
 
 Thre is a help if needed:
-```
+```bash
 ./ubuntu/create_image.sh -h
 ```
 

@@ -55,25 +55,31 @@ already been downloaded or extracted.
 **Warning!** This script by default wipes the first disks and setups ubuntu
 partitions! If you want custom partitioning run the program with `-p` argument.
 
-#### Exemplary usages:
+#### Exemplary usages
+
 Does everything and saves the image as `ubuntu-auto.iso` in the script execution
 directory:
+
 ```bash
 ./ubuntu/create_image.sh
 ```
+
 Extracts downloaded image and saves modified image (it is important that the
-image is
-[22.04.2](https://old-releases.ubuntu.com/releases/22.04/ubuntu-22.04.2-desktop-amd64.iso),
+image is downloaded from
+[here](https://ubuntu.task.gda.pl/ubuntu-releases/22.04.3/ubuntu-22.04.3-desktop-amd64.iso),
 otherwise it may work incorrectly):
+
 ```bash
-./ubuntu/create_image.sh -i ~/Downloads/ubuntu-22.04.2-desktop-amd64.iso
+./ubuntu/create_image.sh -i ~/Downloads/ubuntu-22.04.3-desktop-amd64.iso
 ```
+
 Saves modified image as `ubuntu.iso`:
 ```bash
 ./ubuntu/create_image.sh -o ubuntu.iso
 ```
 
-Thre is a help if needed:
+There is a help if needed:
+
 ```bash
 ./ubuntu/create_image.sh -h
 ```
@@ -87,7 +93,7 @@ Debian preseeds are located in the `debian/` directory.
 Boot the Debian ISO and append the following to the kernel commandline before
 launching the installer:
 
-```
+```bash
 auto url=http://[your ip]:8080/debian/preseed.cfg
 ```
 
@@ -95,7 +101,7 @@ auto url=http://[your ip]:8080/debian/preseed.cfg
 
 Add the following snippet to your netboot.xyz Debian netboot entry:
 
-```
+```bash
 set preseedurl http://[your ip]:8080/debian/preseed.cfg
 preseed/url=${preseedurl}
 ```

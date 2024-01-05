@@ -4,8 +4,9 @@ set -euo pipefail
 
 UBUNTU_VERSION="22.04.3"
 ISO_DOWNLOAD_LINK="https://ubuntu.task.gda.pl/ubuntu-releases/${UBUNTU_VERSION}/ubuntu-${UBUNTU_VERSION}-desktop-amd64.iso"
-PARTITIONING_PRESEED="partitioning.cfg"
-MAIN_PRESEED="main.cfg"
+SCRIPTDIR=$(readlink -f $(dirname "$0"))
+PARTITIONING_PRESEED="$SCRIPTDIR/partitioning.cfg"
+MAIN_PRESEED="$SCRIPTDIR/main.cfg"
 OUTPUT_ISO="ubuntu-auto-${UBUNTU_VERSION}.iso"
 ISO_PATH=""
 ISO_EXTR_PATH=""

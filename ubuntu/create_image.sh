@@ -2,13 +2,13 @@
 
 set -euo pipefail
 
-UBUNTU_VERSION="22.04.3"
+UBUNTU_VERSION="22.04.4"
 ISO_DOWNLOAD_LINK="https://ubuntu.task.gda.pl/ubuntu-releases/${UBUNTU_VERSION}/ubuntu-${UBUNTU_VERSION}-desktop-amd64.iso"
 SCRIPTDIR=$(readlink -f $(dirname "$0"))
 PARTITIONING_PRESEED="$SCRIPTDIR/partitioning.cfg"
 MAIN_PRESEED="$SCRIPTDIR/main.cfg"
 OUTPUT_ISO="ubuntu-auto-${UBUNTU_VERSION}.iso"
-ISO_PATH=""
+ISO_PATH="${ISO_PATH:-ubuntu.iso}"
 ISO_EXTR_PATH=""
 PARTITIONING=1
 
@@ -71,8 +71,7 @@ fi
 tmpdir=$(mktemp -d)
 
 # download iso image
-if [[ $ISO_PATH == "" ]]; then
-    ISO_PATH="ubuntu.iso"
+if [[ ! -f "$ISO_PATH" ]]; then
     echo "Downloading Ubuntu Desktop ${UBUNTU_VERSION} image..."
     wget -O "$ISO_PATH" $ISO_DOWNLOAD_LINK
 fi
@@ -86,9 +85,9 @@ if [[ $ISO_EXTR_PATH == "" ]]; then
     chmod -R u+w "$ISO_EXTR_PATH"
 fi
 
-# set up kernel to use preseed
-sed -i -e 's,file=/cdrom/preseed/ubuntu.seed maybe-ubiquity quiet splash,file=/cdrom/preseed/ubuntu.seed iso-scan/filename=${iso_path} auto=true priority=critical boot=casper automatic-ubiquity quiet splash noprompt noshell,g' "$ISO_EXTR_PATH/boot/grub/grub.cfg"
-sed -i -e 's,file=/cdrom/preseed/ubuntu.seed maybe-ubiquity iso-scan/filename=${iso_path} quiet splash,file=/cdrom/preseed/ubuntu.seed iso-scan/filename=${iso_path} auto=true priority=critical boot=casper automatic-ubiquity quiet splash noprompt noshell,g' "$ISO_EXTR_PATH/boot/grub/loopback.cfg"
+# set up kernel to use preseed and serial port
+sed -i -e 's@file=/cdrom/preseed/ubuntu.seed maybe-ubiquity quiet splash@file=/cdrom/preseed/ubuntu.seed iso-scan/filename=${iso_path} auto=true priority=critical boot=casper automatic-ubiquity splash noprompt noshell console=tty0 console=ttyS0,115200n8@g' "$ISO_EXTR_PATH/boot/grub/grub.cfg"
+sed -i -e 's@file=/cdrom/preseed/ubuntu.seed maybe-ubiquity iso-scan/filename=${iso_path} quiet splash@file=/cdrom/preseed/ubuntu.seed iso-scan/filename=${iso_path} auto=true priority=critical boot=casper automatic-ubiquity splash noprompt noshell console=tty0 console=ttyS0,115200n8@g' "$ISO_EXTR_PATH/boot/grub/loopback.cfg"
 sed -i 's/Try or Install Ubuntu/Perform automatic installation/' "$ISO_EXTR_PATH/boot/grub/grub.cfg"
 
 # inject preseed

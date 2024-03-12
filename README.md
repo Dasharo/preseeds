@@ -46,7 +46,7 @@ the USB can be modified under Linux. Example command:
 
 ### Ubuntu
 
-`ubuntu/create_image.sh` script automatically downloads Ubuntu release 22.04.2,
+`ubuntu/create_image.sh` script automatically downloads Ubuntu release 22.04.4,
 extracts it, injects preseeds and packages the new iso image. General preseed
 configuration can be found in the `ubuntu/main.cfg` file, if necessary, it can
 be edited. The script also takes arguments if the original Ubuntu iso image has
@@ -66,11 +66,11 @@ directory:
 
 Extracts downloaded image and saves modified image (it is important that the
 image is downloaded from
-[here](https://ubuntu.task.gda.pl/ubuntu-releases/22.04.3/ubuntu-22.04.3-desktop-amd64.iso),
+[here](https://ubuntu.task.gda.pl/ubuntu-releases/22.04.4/ubuntu-22.04.4-desktop-amd64.iso),
 otherwise it may work incorrectly):
 
 ```bash
-./ubuntu/create_image.sh -i ~/Downloads/ubuntu-22.04.3-desktop-amd64.iso
+./ubuntu/create_image.sh -i ~/Downloads/ubuntu-22.04.4-desktop-amd64.iso
 ```
 
 Saves modified image as `ubuntu.iso`:

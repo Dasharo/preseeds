@@ -57,8 +57,8 @@ partitions! If you want custom partitioning run the program with `-p` argument.
 
 #### Exemplary usages
 
-Does everything and saves the image as `ubuntu-auto.iso` in the script execution
-directory:
+Does everything and saves the image as `ubuntu-auto-22.04.4.iso` in the script
+execution directory:
 
 ```bash
 ./ubuntu/create_image.sh

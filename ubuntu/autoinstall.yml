@@ -1,0 +1,59 @@
+#cloud-config
+autoinstall:
+  version: 1
+  early-commands:
+    # Configure system-wide DNS, use Google DNS as generic server:
+    - 'sed -i "s/^nameserver [0-9.]\+/nameserver 8.8.8.8/g" /etc/resolv.conf'
+  packages:
+    - 'ubuntu-desktop'
+    - 'linux-tools-generic'
+    - 'open-vm-tools'
+    - 'openssh-server'
+    - 'libglib2.0-bin'
+    - 'dbus-x11'
+  locale: 'en_US.UTF-8'
+  refresh-installer:
+    update: true
+  keyboard:
+    layout: 'us'
+  network:
+    version: 2
+    ethernets:
+      enp0s6:
+        dhcp4: true
+  apt:
+    preserve_sources_list: false
+    mirror_selection:
+      primary:
+        - country-mirror
+        - uri: 'http://archive.ubuntu.com/ubuntu'
+    geoip: true
+    fallback: 'abort'
+  identity:
+    realname: 'Ubuntu'
+    username: 'ubuntu'
+    hostname: '3mdeb'
+    # Password: ubuntu
+    # Generated with "openssl passwd -6"
+    password: '$6$eRzcYyR3Xw2elP6l$l7JXHXxbXRgD8KCx4xFt4q7aJFpsUfjjMHbfYZAlJ56GLSspojJ6ODxlauuauL72jYbwhEhGwUmzgImIVCFle0'
+  ssh:
+    install-server: true
+    allow-pw: true
+  codecs:
+    install: true
+  timezone: 'geoip'
+  updates: 'all'
+  late-commands:
+    - chroot /target sed -i 's/^[[:space:]#]*PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+    - chroot /target systemctl enable ssh
+    - chroot /target sed -i 's/\(^GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 console=tty0 console=ttyS0,115200"/' /etc/default/grub
+    - chroot /target sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=5/' /etc/default/grub
+    - chroot /target sed -i 's/kernel.printk.*/kernel.printk = 1 4 1 7/' /etc/sysctl.d/10-console-messages.conf
+    - chroot /target sed -i 's/^GRUB_TIMEOUT_STYLE=.*/GRUB_TIMEOUT_STYLE=menu/' /etc/default/grub
+    - chroot /target sed -i 's/^#GRUB_TERMINAL=.*/GRUB_TERMINAL="serial gfxterm"/' /etc/default/grub
+    - mount --bind /proc /target/proc
+    - mount --bind /sys /target/sys
+    - mount --bind /dev /target/dev
+    - chroot /target update-grub
+    - chroot /target gsettings set org.gnome.SessionManager logout-prompt false
+  shutdown: 'reboot'

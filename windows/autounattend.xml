@@ -210,6 +210,18 @@
                     <Description>Installs Windows Updates</Description>
                     <CommandLine>powershell.exe -ExecutionPolicy Bypass Install-PackageProvider NuGet -Force; Register-PSRepository -Default -Verbose; Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; Install-Module PSWindowsUpdate; Get-WindowsUpdate -AcceptAll -Install -AutoReboot;</CommandLine>
                 </SynchronousCommand>
+		<SynchronousCommand wcm:action="add">
+		    <RequiresUserInput>false</RequiresUserInput>
+		    <Order>8</Order>
+		    <Description>Removes execution restrictions for current user</Description>
+		    <CommandLine>powershell.exe -ExecutionPolicy Bypass Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser</CommandLine>
+                </SynchronousCommand>
+		<SynchronousCommand wcm:action="add">
+		    <RequiresUserInput>false</RequiresUserInput>
+		    <Order>9</Order>
+		    <Description>Removes execution restrictions for local machine</Description>
+		    <CommandLine>powershell.exe -ExecutionPolicy Bypass Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope LocalMachine</CommandLine>
+                </SynchronousCommand>
             </FirstLogonCommands>
         </component>
     </settings>

@@ -1,0 +1,61 @@
+#cloud-config
+autoinstall:
+  version: 1
+  early-commands:
+    # Configure system-wide DNS, use Google DNS as a generic server:
+    - 'sed -i "s/^nameserver [0-9.]\+/nameserver 8.8.8.8/g" /etc/resolv.conf'
+  packages:
+    - 'vim'
+    - 'openssh-server'
+  locale: 'en_US.UTF-8'
+  refresh-installer:
+    update: true
+  keyboard:
+    layout: 'us'
+  network:
+    version: 2
+    ethernets:
+      enp0s6:
+        dhcp4: true
+  apt:
+    preserve_sources_list: false
+    mirror_selection:
+      primary:
+        - country-mirror
+        - uri: 'http://archive.ubuntu.com/ubuntu'
+    geoip: true
+    fallback: 'abort'
+  identity:
+    realname: 'Ubuntu'
+    username: 'ubuntu'
+    hostname: 'ubuntu'
+    # Password: ubuntu
+    # Generated with "openssl passwd -6"
+    password: '$6$eRzcYyR3Xw2elP6l$l7JXHXxbXRgD8KCx4xFt4q7aJFpsUfjjMHbfYZAlJ56GLSspojJ6ODxlauuauL72jYbwhEhGwUmzgImIVCFle0'
+  ssh:
+    install-server: true
+    allow-pw: true
+  codecs:
+    install: true
+  timezone: 'geoip'
+  updates: 'all'
+  late-commands:
+    # Enable password authentication
+    - chroot /target sed -i 's/^[[:space:]#]*PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+    # Enable ssh on boot
+    - chroot /target systemctl enable ssh
+    # Configure GRUB2
+    - chroot /target sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=5/' /etc/default/grub
+    - chroot /target sed -i 's/kernel.printk.*/kernel.printk = 1 4 1 7/' /etc/sysctl.d/10-console-messages.conf
+    - chroot /target sed -i 's/^GRUB_TIMEOUT_STYLE=.*/GRUB_TIMEOUT_STYLE=menu/' /etc/default/grub
+    - chroot /target sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="console=ttyS0,115200n8"/' /etc/default/grub
+    - chroot /target sed -i 's/^GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="console=ttyS0,115200n8"/' /etc/default/grub
+    - chroot /target sed -i 's/^#GRUB_TERMINAL=.*/GRUB_TERMINAL="console serial"/' /etc/default/grub
+    - chroot /target echo 'GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1"' >> /etc/default/grub
+    - chroot /target echo 'ttyS0' >> /etc/securetty
+    - mount --bind /proc /target/proc
+    - mount --bind /sys /target/sys
+    - mount --bind /dev /target/dev
+    - chroot /target update-grub
+    - chroot /target gsettings set org.gnome.SessionManager logout-prompt false
+  shutdown: 'reboot'

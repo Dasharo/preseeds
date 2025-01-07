@@ -58,4 +58,8 @@ autoinstall:
     - mount --bind /dev /target/dev
     - chroot /target update-grub
     - chroot /target gsettings set org.gnome.SessionManager logout-prompt false
+    - chroot /target systemctl disable NetworkManager-wait-online
+    - chroot /target systemctl disable systemd-networkd-wait-online
+    - chroot /target systemctl mask systemd-networkd-wait-online.service
+    - chroot /target systemctl mask NetworkManager-wait-online.service
   shutdown: 'reboot'

@@ -84,6 +84,43 @@ There is a help if needed:
 ./ubuntu/create_image.sh -h
 ```
 
+### Fedora
+`fedora/create_image.sh` script downloads the Fedora 42 Everything iso and
+replaces the `grub.cfg` file with `fedora/grub-efi.cfg`. The modified iso can
+be used to create an installation medium by writing it to a flash drive.
+The modifications cause the installer to download the kickstart file
+at `fedora/ks.cfg` from this repository.
+The installer does not wipe out other OSes. It creates a partition 50GB
+in size automatically, but fails if there is not enough space on any
+of the disks.
+
+#### Example usage
+
+Downloads Fedora and modifies the iso
+
+```bash
+./fedora/create-image.sh
+```
+
+Modifies the iso given as an argument. The script looks for `fedora.iso` by default.
+Downloads the iso if the file is not found.
+
+```bash
+./fedora/create-image.sh -i fedora.iso
+```
+
+Save the modified iso to given path. The default output file name is `fedora-auto-{version}.iso`
+
+```bash
+./fedora/create-image.sh -o fedora-auto-42-1.1.iso
+```
+
+Show help
+
+```bash
+./fedora/create-image.sh -h
+```
+
 ### Debian
 
 Debian preseeds are located in the `debian/` directory.

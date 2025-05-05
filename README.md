@@ -16,6 +16,7 @@ $ python -m http.server 8080
 | --- | --- | --- | --- |
 | Ubuntu | [Yes](#via-http)   | [Yes](#via-netbootxyz)   | [Yes](#locally)   |
 | Debian | [Yes](#via-http-1) | [Yes](#via-netbootxyz-1) | [Yes](#locally-1) |
+| Fedora | No                 | No                       | [Yes](#fedora)    |
 
 ### Windows
 

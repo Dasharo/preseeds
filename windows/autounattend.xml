@@ -190,7 +190,7 @@
                     <Order>6</Order>
                     <Description>Disables autosleep and system password expiry</Description>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>powershell.exe -ExecutionPolicy Bypass Write-Host "Disabling password expiry and autosleep..."; wmic UserAccount set PasswordExpires=False; Powercfg /Change standby-timeout-ac 0; Powercfg /Change standby-timeout-dc 0;</CommandLine>
+                    <CommandLine>powershell.exe -ExecutionPolicy Bypass Write-Host "Disabling password expiry and autosleep..."; Set-LocalUser -Name "user" -PasswordNeverExpires $True; Powercfg /Change standby-timeout-ac 0; Powercfg /Change standby-timeout-dc 0;</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <RequiresUserInput>false</RequiresUserInput>

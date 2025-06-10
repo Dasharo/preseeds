@@ -51,6 +51,7 @@ autoinstall:
     - chroot /target sed -i 's/kernel.printk.*/kernel.printk = 1 4 1 7/' /etc/sysctl.d/10-console-messages.conf
     - chroot /target sed -i 's/^GRUB_TIMEOUT_STYLE=.*/GRUB_TIMEOUT_STYLE=menu/' /etc/default/grub
     - chroot /target sed -i 's/^#GRUB_TERMINAL=.*/GRUB_TERMINAL="serial gfxterm"/' /etc/default/grub
+    - chroot /target sed -i '/\[daemon\]/a AutomaticLoginEnable = True\nAutomaticLogin = ubuntu\n' /etc/gdm3/custom.conf
     - mount --bind /proc /target/proc
     - mount --bind /sys /target/sys
     - mount --bind /dev /target/dev

@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-
-UBUNTU_VERSION="22.04.4"
-ISO_DOWNLOAD_LINK="https://ubuntu.task.gda.pl/ubuntu-releases/${UBUNTU_VERSION}/ubuntu-${UBUNTU_VERSION}-desktop-amd64.iso"
+UBUNTU_VERSION="24.04.2"
+ISO_DOWNLOAD_LINK="https://ubuntu.man.lodz.pl/ubuntu-releases/${UBUNTU_VERSION}/ubuntu-${UBUNTU_VERSION}-live-server-amd64.iso"
 SCRIPTDIR=$(readlink -f $(dirname "$0"))
 PARTITIONING_PRESEED="$SCRIPTDIR/partitioning.cfg"
 MAIN_PRESEED="$SCRIPTDIR/main.cfg"

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 OUTPUT_ISO="windows-auto.iso"
-ISO_PATH="${ISO_PATH:-fedora.iso}"
+ISO_PATH="${ISO_PATH:-windows.iso}"
 CUSTOM_DATA_DIR="windows/custom_data"
 
 while getopts "hi:o" arg; do
@@ -50,13 +50,17 @@ rm -rf "$tmp"
 # Copy custom autounattend.xml
 cp windows/autounattend.xml "$tmp2/autounattend.xml"
 
-# Copy custom scripts etc accessible after installation
+
+# Custom files
 desktop="$tmp2"'/$OEM$/$1/Users/Public/Desktop'
+
+# Copy drivers from protectli-docs
+# git clone git@github.com:Dasharo/protectli-docs
+cp -r protectli-docs/SDIO/drivers $CUSTOM_DATA_DIR
+
+# Copy custom scripts and other files to the desktop
 mkdir -p $desktop
-for f in $CUSTOM_DATA_DIR/*; do
-    name=$(basename -- $f)
-    cp $f "$desktop/$name"
-done
+cp -r $CUSTOM_DATA_DIR "$desktop/"
 
 # Rebuild iso
 xorriso -as mkisofs \

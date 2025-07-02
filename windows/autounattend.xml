@@ -2,10 +2,10 @@
 
 <!-- Based on unattend.xml generated using  https://schneegans.de/windows/unattend-generator/ -->
 <!--
-https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILanguage=en-GB&Locale=en-US&Keyboard=00000409&GeoLocation=244&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&UseConfigurationSet=true&ComputerNameMode=Custom&ComputerName=3mdeb&CompactOsMode=Default&TimeZoneMode=Implicit&PartitionMode=Custom&DiskpartScript=SELECT+DISK%3D0%0D%0ACLEAN%0D%0ACONVERT+GPT%0D%0ACREATE+PARTITION+EFI+SIZE%3D300%0D%0AFORMAT+QUICK+FS%3DFAT32+LABEL%3D%22System%22%0D%0ACREATE+PARTITION+MSR+SIZE%3D16%0D%0ACREATE+PARTITION+PRIMARY%0D%0ASHRINK+MINIMUM%3D1000%0D%0AFORMAT+QUICK+FS%3DNTFS+LABEL%3D%22Windows%22%0D%0ACREATE+PARTITION+PRIMARY%0D%0AFORMAT+QUICK+FS%3DNTFS+LABEL%3D%22Recovery%22%0D%0ASET+ID%3D%22de94bba4-06d1-4d40-a16a-bfd50179d6ac%22%0D%0AGPT+ATTRIBUTES%3D0x8000000000000001&InstallToMode=Available&DiskAssertionMode=Skip&WindowsEditionMode=Generic&WindowsEdition=home&InstallFromMode=Automatic&UserAccountMode=Unattended&AccountName0=user&AccountDisplayName0=&AccountPassword0=windows&AccountGroup0=Administrators&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Default&HideFiles=Hidden&TaskbarSearch=Box&TaskbarIconsMode=Default&StartTilesMode=Default&StartPinsMode=Default&DisableFastStartup=true&EnableLongPaths=true&AllowPowerShellScripts=true&PreventDeviceEncryption=true&DisablePointerPrecision=true&EffectsMode=Default&DesktopIconsMode=Default&WifiMode=Skip&ExpressSettings=DisableAll&KeysMode=Skip&StickyKeysMode=Default&ColorMode=Default&WallpaperMode=Default&FirstLogonScript0=Write-Host+%22Downloading+all+Windows+updates...%22%3B%0D%0AInstall-PackageProvider+NuGet+-Force%3B%0D%0ARegister-PSRepository+-Default+-Verbose%0D%0ASet-PSRepository+-Name+PSGallery+-InstallationPolicy+Trusted%3B%0D%0AInstall-Module+PSWindowsUpdate%3B%0D%0AGet-WindowsUpdate+-AcceptAll+-Install+-AutoReboot%0D%0A&FirstLogonScriptType0=Ps1&FirstLogonScript1=Write-Host+%22Setting+up+ssh...%22%3B%0D%0AAdd-WindowsCapability+-Online+-Name+OpenSSH.Client%7E%7E%7E%7E0.0.1.0%0D%0AAdd-WindowsCapability+-Online+-Name+OpenSSH.Server%7E%7E%7E%7E0.0.1.0%0D%0AGet-Service+-Name+ssh-agent+%7C+Set-Service+-StartupType+Manual%0D%0AStart-Service+ssh-agent%0D%0AGet-Service+-Name+ssh-agent+%7C+Set-Service+-StartupType+Automatic%0D%0AStart-Service+sshd%0D%0AGet-Service+-Name+sshd+%7C+Set-Service+-StartupType+Automatic%0D%0ANew-NetFirewallRule+-Name+sshd+-DisplayName+%27OpenSSH+Server+%28sshd%29%27+-Enabled+True+-Direction+Inbound+-Protocol+TCP+-Action+Allow+-LocalPort+22%0D%0ANew-ItemProperty+-Path+%22HKLM%3A%5CSOFTWARE%5COpenSSH%22+-Name+DefaultShell+-Value+%22C%3A%5CWindows%5CSystem32%5CWindowsPowerShell%5Cv1.0%5Cpowershell.exe%22+-PropertyType+String+-Force%0D%0Awmic+UserAccount+set+PasswordExpires%3DFalse%0D%0APowercfg+%2FChange+standby-timeout-ac+0%0D%0APowercfg+%2FChange+standby-timeout-dc+0%0D%0A&FirstLogonScriptType1=Ps1&WdacMode=Skip
+https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILanguage=en-GB&Locale=en-US&Keyboard=00000409&GeoLocation=244&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&UseConfigurationSet=true&ComputerNameMode=Custom&ComputerName=windows&CompactOsMode=Default&TimeZoneMode=Implicit&PartitionMode=Custom&DiskpartScript=SELECT+DISK%3D0%0D%0ACLEAN%0D%0ACONVERT+GPT%0D%0ACREATE+PARTITION+EFI+SIZE%3D300%0D%0AFORMAT+QUICK+FS%3DFAT32+LABEL%3D%22System%22%0D%0ACREATE+PARTITION+MSR+SIZE%3D16%0D%0ACREATE+PARTITION+PRIMARY%0D%0ASHRINK+MINIMUM%3D1000%0D%0AFORMAT+QUICK+FS%3DNTFS+LABEL%3D%22Windows%22%0D%0ACREATE+PARTITION+PRIMARY%0D%0AFORMAT+QUICK+FS%3DNTFS+LABEL%3D%22Recovery%22%0D%0ASET+ID%3D%22de94bba4-06d1-4d40-a16a-bfd50179d6ac%22%0D%0AGPT+ATTRIBUTES%3D0x8000000000000001&InstallToMode=Available&DiskAssertionMode=Skip&WindowsEditionMode=Generic&WindowsEdition=home&InstallFromMode=Automatic&UserAccountMode=Unattended&AccountName0=user&AccountDisplayName0=&AccountPassword0=windows&AccountGroup0=Administrators&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Default&HideFiles=Hidden&TaskbarSearch=Box&TaskbarIconsMode=Default&StartTilesMode=Default&StartPinsMode=Default&DisableFastStartup=true&EnableLongPaths=true&AllowPowerShellScripts=true&PreventDeviceEncryption=true&DisablePointerPrecision=true&EffectsMode=Default&DesktopIconsMode=Default&WifiMode=Skip&ExpressSettings=DisableAll&KeysMode=Skip&StickyKeysMode=Default&ColorMode=Default&WallpaperMode=Default&FirstLogonScript0=Write-Host+%22Downloading+all+Windows+updates...%22%3B%0D%0AInstall-PackageProvider+NuGet+-Force%3B%0D%0ARegister-PSRepository+-Default+-Verbose%0D%0ASet-PSRepository+-Name+PSGallery+-InstallationPolicy+Trusted%3B%0D%0AInstall-Module+PSWindowsUpdate%3B%0D%0AGet-WindowsUpdate+-AcceptAll+-Install+-AutoReboot%0D%0A&FirstLogonScriptType0=Ps1&FirstLogonScript1=Write-Host+%22Setting+up+ssh...%22%3B%0D%0AAdd-WindowsCapability+-Online+-Name+OpenSSH.Client%7E%7E%7E%7E0.0.1.0%0D%0AAdd-WindowsCapability+-Online+-Name+OpenSSH.Server%7E%7E%7E%7E0.0.1.0%0D%0AGet-Service+-Name+ssh-agent+%7C+Set-Service+-StartupType+Manual%0D%0AStart-Service+ssh-agent%0D%0AGet-Service+-Name+ssh-agent+%7C+Set-Service+-StartupType+Automatic%0D%0AStart-Service+sshd%0D%0AGet-Service+-Name+sshd+%7C+Set-Service+-StartupType+Automatic%0D%0ANew-NetFirewallRule+-Name+sshd+-DisplayName+%27OpenSSH+Server+%28sshd%29%27+-Enabled+True+-Direction+Inbound+-Protocol+TCP+-Action+Allow+-LocalPort+22%0D%0ANew-ItemProperty+-Path+%22HKLM%3A%5CSOFTWARE%5COpenSSH%22+-Name+DefaultShell+-Value+%22C%3A%5CWindows%5CSystem32%5CWindowsPowerShell%5Cv1.0%5Cpowershell.exe%22+-PropertyType+String+-Force%0D%0Awmic+UserAccount+set+PasswordExpires%3DFalse%0D%0APowercfg+%2FChange+standby-timeout-ac+0%0D%0APowercfg+%2FChange+standby-timeout-dc+0%0D%0A&FirstLogonScriptType1=Ps1&WdacMode=Skip
 -->
 <unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
-	<!--https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILanguage=en-GB&Locale=en-US&Keyboard=00000409&GeoLocation=244&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&UseConfigurationSet=true&ComputerNameMode=Custom&ComputerName=3mdeb&CompactOsMode=Default&TimeZoneMode=Implicit&PartitionMode=Custom&DiskpartScript=SELECT+DISK%3D0%0D%0ACLEAN%0D%0ACONVERT+GPT%0D%0ACREATE+PARTITION+EFI+SIZE%3D300%0D%0AFORMAT+QUICK+FS%3DFAT32+LABEL%3D%22System%22%0D%0ACREATE+PARTITION+MSR+SIZE%3D16%0D%0ACREATE+PARTITION+PRIMARY%0D%0ASHRINK+MINIMUM%3D1000%0D%0AFORMAT+QUICK+FS%3DNTFS+LABEL%3D%22Windows%22%0D%0ACREATE+PARTITION+PRIMARY%0D%0AFORMAT+QUICK+FS%3DNTFS+LABEL%3D%22Recovery%22%0D%0ASET+ID%3D%22de94bba4-06d1-4d40-a16a-bfd50179d6ac%22%0D%0AGPT+ATTRIBUTES%3D0x8000000000000001&InstallToMode=Available&DiskAssertionMode=Skip&WindowsEditionMode=Generic&WindowsEdition=home&InstallFromMode=Automatic&UserAccountMode=Unattended&AccountName0=user&AccountDisplayName0=&AccountPassword0=windows&AccountGroup0=Administrators&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Default&HideFiles=Hidden&TaskbarSearch=Box&TaskbarIconsMode=Default&StartTilesMode=Default&StartPinsMode=Default&DisableFastStartup=true&EnableLongPaths=true&AllowPowerShellScripts=true&PreventDeviceEncryption=true&DisablePointerPrecision=true&EffectsMode=Default&DesktopIconsMode=Default&WifiMode=Skip&ExpressSettings=DisableAll&KeysMode=Skip&StickyKeysMode=Default&ColorMode=Default&WallpaperMode=Default&FirstLogonScript0=Write-Host+%22Downloading+all+Windows+updates...%22%3B%0D%0AInstall-PackageProvider+NuGet+-Force%3B%0D%0ARegister-PSRepository+-Default+-Verbose%0D%0ASet-PSRepository+-Name+PSGallery+-InstallationPolicy+Trusted%3B%0D%0AInstall-Module+PSWindowsUpdate%3B%0D%0AGet-WindowsUpdate+-AcceptAll+-Install+-AutoReboot%0D%0A&FirstLogonScriptType0=Ps1&FirstLogonScript1=Write-Host+%22Setting+up+ssh...%22%3B%0D%0AAdd-WindowsCapability+-Online+-Name+OpenSSH.Client%7E%7E%7E%7E0.0.1.0%0D%0AAdd-WindowsCapability+-Online+-Name+OpenSSH.Server%7E%7E%7E%7E0.0.1.0%0D%0AGet-Service+-Name+ssh-agent+%7C+Set-Service+-StartupType+Manual%0D%0AStart-Service+ssh-agent%0D%0AGet-Service+-Name+ssh-agent+%7C+Set-Service+-StartupType+Automatic%0D%0AStart-Service+sshd%0D%0AGet-Service+-Name+sshd+%7C+Set-Service+-StartupType+Automatic%0D%0ANew-NetFirewallRule+-Name+sshd+-DisplayName+%27OpenSSH+Server+%28sshd%29%27+-Enabled+True+-Direction+Inbound+-Protocol+TCP+-Action+Allow+-LocalPort+22%0D%0ANew-ItemProperty+-Path+%22HKLM%3A%5CSOFTWARE%5COpenSSH%22+-Name+DefaultShell+-Value+%22C%3A%5CWindows%5CSystem32%5CWindowsPowerShell%5Cv1.0%5Cpowershell.exe%22+-PropertyType+String+-Force%0D%0Awmic+UserAccount+set+PasswordExpires%3DFalse%0D%0APowercfg+%2FChange+standby-timeout-ac+0%0D%0APowercfg+%2FChange+standby-timeout-dc+0%0D%0A&FirstLogonScriptType1=Ps1&WdacMode=Skip-->
+	<!--https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILanguage=en-GB&Locale=en-US&Keyboard=00000409&GeoLocation=244&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&UseConfigurationSet=true&ComputerNameMode=Custom&ComputerName=windows&CompactOsMode=Default&TimeZoneMode=Implicit&PartitionMode=Custom&DiskpartScript=SELECT+DISK%3D0%0D%0ACLEAN%0D%0ACONVERT+GPT%0D%0ACREATE+PARTITION+EFI+SIZE%3D300%0D%0AFORMAT+QUICK+FS%3DFAT32+LABEL%3D%22System%22%0D%0ACREATE+PARTITION+MSR+SIZE%3D16%0D%0ACREATE+PARTITION+PRIMARY%0D%0ASHRINK+MINIMUM%3D1000%0D%0AFORMAT+QUICK+FS%3DNTFS+LABEL%3D%22Windows%22%0D%0ACREATE+PARTITION+PRIMARY%0D%0AFORMAT+QUICK+FS%3DNTFS+LABEL%3D%22Recovery%22%0D%0ASET+ID%3D%22de94bba4-06d1-4d40-a16a-bfd50179d6ac%22%0D%0AGPT+ATTRIBUTES%3D0x8000000000000001&InstallToMode=Available&DiskAssertionMode=Skip&WindowsEditionMode=Generic&WindowsEdition=home&InstallFromMode=Automatic&UserAccountMode=Unattended&AccountName0=user&AccountDisplayName0=&AccountPassword0=windows&AccountGroup0=Administrators&AutoLogonMode=Own&PasswordExpirationMode=Unlimited&LockoutMode=Default&HideFiles=Hidden&TaskbarSearch=Box&TaskbarIconsMode=Default&StartTilesMode=Default&StartPinsMode=Default&DisableFastStartup=true&EnableLongPaths=true&AllowPowerShellScripts=true&PreventDeviceEncryption=true&DisablePointerPrecision=true&EffectsMode=Default&DesktopIconsMode=Default&WifiMode=Skip&ExpressSettings=DisableAll&KeysMode=Skip&StickyKeysMode=Default&ColorMode=Default&WallpaperMode=Default&FirstLogonScript0=Write-Host+%22Downloading+all+Windows+updates...%22%3B%0D%0AInstall-PackageProvider+NuGet+-Force%3B%0D%0ARegister-PSRepository+-Default+-Verbose%0D%0ASet-PSRepository+-Name+PSGallery+-InstallationPolicy+Trusted%3B%0D%0AInstall-Module+PSWindowsUpdate%3B%0D%0AGet-WindowsUpdate+-AcceptAll+-Install+-AutoReboot%0D%0A&FirstLogonScriptType0=Ps1&FirstLogonScript1=Write-Host+%22Setting+up+ssh...%22%3B%0D%0AAdd-WindowsCapability+-Online+-Name+OpenSSH.Client%7E%7E%7E%7E0.0.1.0%0D%0AAdd-WindowsCapability+-Online+-Name+OpenSSH.Server%7E%7E%7E%7E0.0.1.0%0D%0AGet-Service+-Name+ssh-agent+%7C+Set-Service+-StartupType+Manual%0D%0AStart-Service+ssh-agent%0D%0AGet-Service+-Name+ssh-agent+%7C+Set-Service+-StartupType+Automatic%0D%0AStart-Service+sshd%0D%0AGet-Service+-Name+sshd+%7C+Set-Service+-StartupType+Automatic%0D%0ANew-NetFirewallRule+-Name+sshd+-DisplayName+%27OpenSSH+Server+%28sshd%29%27+-Enabled+True+-Direction+Inbound+-Protocol+TCP+-Action+Allow+-LocalPort+22%0D%0ANew-ItemProperty+-Path+%22HKLM%3A%5CSOFTWARE%5COpenSSH%22+-Name+DefaultShell+-Value+%22C%3A%5CWindows%5CSystem32%5CWindowsPowerShell%5Cv1.0%5Cpowershell.exe%22+-PropertyType+String+-Force%0D%0Awmic+UserAccount+set+PasswordExpires%3DFalse%0D%0APowercfg+%2FChange+standby-timeout-ac+0%0D%0APowercfg+%2FChange+standby-timeout-dc+0%0D%0A&FirstLogonScriptType1=Ps1&WdacMode=Skip-->
 	<settings pass="offlineServicing"></settings>
 	<settings pass="windowsPE">
 		<component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
@@ -41,72 +41,36 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
 				<!-- PRIMARY -->
 				<RunSynchronousCommand wcm:action="add">
 					<Order>2</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\diskpart.txt" (echo CREATE PARTITION PRIMARY&amp;echo SHRINK MINIMUM=1000&amp;echo FORMAT QUICK FS=NTFS LABEL="Windows"&amp;echo CREATE PARTITION PRIMARY&amp;echo FORMAT QUICK FS=NTFS LABEL="Recovery")"</Path>
+					<Path>cmd.exe /c "&gt;&gt;"X:\diskpart.txt" (echo CREATE PARTITION PRIMARY SIZE=61440&amp;echo FORMAT QUICK FS=NTFS LABEL="Windows"&amp;echo CREATE PARTITION PRIMARY SIZE=1024&amp;echo FORMAT QUICK FS=NTFS LABEL="Recovery")"</Path>
 				</RunSynchronousCommand>
 				<RunSynchronousCommand wcm:action="add">
 					<Order>3</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\diskpart.txt" (echo SET ID="de94bba4-06d1-4d40-a16a-bfd50179d6ac"&amp;echo GPT ATTRIBUTES=0x8000000000000001)"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>4</Order>
 					<Path>cmd.exe /c "diskpart.exe /s "X:\diskpart.txt" &gt;&gt;"X:\diskpart.log" || ( type "X:\diskpart.log" &amp; echo diskpart encountered an error. &amp; pause &amp; exit /b 1 )"</Path>
 				</RunSynchronousCommand>
                 <!-- Bypass checks -->
 				<RunSynchronousCommand wcm:action="add">
+					<Order>4</Order>
+					<Path>reg.exe add "HKLM\SYSTEM\Setup\LabConfig" /v BypassTPMCheck /t reg_dword /d 0x00000001  /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
 					<Order>5</Order>
-					<Path>reg.exe add "HKLM\SYSTEM\Setup\LabConfig" /v BypassTPMCheck /t REG_DWORD /d 1 /f</Path>
+					<Path>reg.exe add "HKLM\SYSTEM\Setup\LabConfig" /v BypassSecureBootCheck /t reg_dword /d 0x00000001  /f</Path>
 				</RunSynchronousCommand>
 				<RunSynchronousCommand wcm:action="add">
 					<Order>6</Order>
-					<Path>reg.exe add "HKLM\SYSTEM\Setup\LabConfig" /v BypassSecureBootCheck /t REG_DWORD /d 1 /f</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>7</Order>
-					<Path>reg.exe add "HKLM\SYSTEM\Setup\LabConfig" /v BypassRAMCheck /t REG_DWORD /d 1 /f</Path>
+					<Path>reg.exe add "HKLM\SYSTEM\Setup\LabConfig" /v BypassRAMCheck /t reg_dword /d 0x00000001  /f</Path>
 				</RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
-                    <Order>8</Order>
+                    <Order>7</Order>
                     <Path>reg add HKLM\System\Setup\LabConfig /v BypassStorageCheck /t reg_dword /d 0x00000001 /f</Path>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
-                    <Order>9</Order>
+                    <Order>8</Order>
                     <Path>reg add HKLM\System\Setup\LabConfig /v BypassCPUCheck /t reg_dword /d 0x00000001 /f</Path>
                 </RunSynchronousCommand>
 			</RunSynchronous>
 		</component>
 	</settings>
-	<settings pass="generalize"></settings>
-	<settings pass="specialize">
-		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-			<ComputerName>3mdeb</ComputerName>
-		</component>
-		<component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-			<RunSynchronous>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>1</Order>
-					<Path>powershell.exe -WindowStyle Normal -NoProfile -Command "$xml = [xml]::new(); $xml.Load('C:\Windows\Panther\unattend.xml'); $sb = [scriptblock]::Create( $xml.unattend.Extensions.ExtractScript ); Invoke-Command -ScriptBlock $sb -ArgumentList $xml;"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>2</Order>
-					<Path>powershell.exe -WindowStyle Normal -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\Specialize.ps1' -Raw | Invoke-Expression;"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>3</Order>
-					<Path>reg.exe load "HKU\DefaultUser" "C:\Users\Default\NTUSER.DAT"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>4</Order>
-					<Path>powershell.exe -WindowStyle Normal -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\DefaultUser.ps1' -Raw | Invoke-Expression;"</Path>
-				</RunSynchronousCommand>
-				<RunSynchronousCommand wcm:action="add">
-					<Order>5</Order>
-					<Path>reg.exe unload "HKU\DefaultUser"</Path>
-				</RunSynchronousCommand>
-			</RunSynchronous>
-		</component>
-	</settings>
-	<settings pass="auditSystem"></settings>
-	<settings pass="auditUser"></settings>
 	<settings pass="oobeSystem">
 		<component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
 			<InputLocale>en-US</InputLocale>
@@ -115,19 +79,23 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
 			<UserLocale>en-US</UserLocale>
 		</component>
 		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-			<UserAccounts>
-				<LocalAccounts>
-					<LocalAccount wcm:action="add">
-						<Name>user</Name>
-						<DisplayName></DisplayName>
-						<Group>Administrators</Group>
-						<Password>
-							<Value>windows</Value>
-							<PlainText>true</PlainText>
-						</Password>
-					</LocalAccount>
-				</LocalAccounts>
-			</UserAccounts>
+           <UserAccounts>
+                <LocalAccounts>
+                    <LocalAccount wcm:action="add">
+                        <Password>
+                            <Value>windows</Value>
+                            <PlainText>true</PlainText>
+                        </Password>
+                        <DisplayName>user</DisplayName>
+                        <Group>administrators</Group>
+                        <Name>user</Name>
+                    </LocalAccount>
+                </LocalAccounts>
+                <AdministratorPassword>
+                    <Value>windows</Value>
+                    <PlainText>true</PlainText>
+                </AdministratorPassword>
+            </UserAccounts>
 			<AutoLogon>
 				<Username>user</Username>
 				<Enabled>true</Enabled>
@@ -141,178 +109,57 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
                 <VMModeOptimizations>
                     <SkipAdministratorProfileRemoval>false</SkipAdministratorProfileRemoval>
                 </VMModeOptimizations>
-                <ProtectYourPC>1</ProtectYourPC>
 				<HideEULAPage>true</HideEULAPage>
-				<HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
-				<HideOnlineAccountScreens>false</HideOnlineAccountScreens>
-                <UnattendEnableRetailDemo>false</UnattendEnableRetailDemo>
                 <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+				<HideOnlineAccountScreens>false</HideOnlineAccountScreens>
+				<HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+                <ProtectYourPC>1</ProtectYourPC>
+                <UnattendEnableRetailDemo>false</UnattendEnableRetailDemo>
             </OOBE>
 			<FirstLogonCommands>
-				<SynchronousCommand wcm:action="add">
-					<Order>1</Order>
-					<CommandLine>powershell.exe -WindowStyle Normal -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\FirstLogon.ps1' -Raw | Invoke-Expression;"</CommandLine>
-				</SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>2</Order>
+			<SynchronousCommand wcm:action="add">
+                    <Order>1</Order>
                     <CommandLine>reg add &quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon&quot; /v AutoLogonCount /t REG_DWORD /d 0 /f</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>3</Order>
+                    <Order>2</Order>
                     <CommandLine>reg add &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server&quot; /v fDenyTSConnections /t REG_DWORD /d 0 /f</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>4</Order>
+                    <Order>3</Order>
                     <CommandLine>netsh advfirewall firewall set rule group="remote desktop" new enable=Yes</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>5</Order>
+                    <Order>4</Order>
                     <CommandLine>cmd.exe /c "net user Administrator /active:yes"</CommandLine>
                     <Description>Enable Administrator account</Description>
                 </SynchronousCommand>
 				<SynchronousCommand wcm:action="add">
-                    <Order>6</Order>
-                    <Description>Sets up SSH</Description>
+                    <Order>5</Order>
+					<Description>Allow executing scripts</Description>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>powershell.exe -ExecutionPolicy Bypass C:\Users\Public\Desktop\install-virtio.ps1;</CommandLine>
+                    <CommandLine>powershell.exe -Command "Set-ExecutionPolicy RemoteSigned -Force -Scope CurrentUser"</CommandLine>
                 </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>7</Order>
-                    <Description>Sets up SSH</Description>
+				<SynchronousCommand wcm:action="add">
+                    <Order>6</Order>
+                    <Description>Set up SSH</Description>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>powershell.exe -ExecutionPolicy Bypass C:\Users\Public\Desktop\setup-ssh.ps1;</CommandLine>
+                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Public\Desktop\custom_data\setup-ssh.ps1";</CommandLine>
+                </SynchronousCommand>
+				<SynchronousCommand wcm:action="add">
+                    <Order>7</Order>
+                    <Description>Prevent sleep</Description>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Public\Desktop\custom_data\standby-timeout.ps1";</CommandLine>
                 </SynchronousCommand>
                  <SynchronousCommand wcm:action="add">
                     <Order>8</Order>
-                    <Description>Disables autosleep and system password expiry</Description>
+                    <Description>Install updates</Description>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>powershell.exe -ExecutionPolicy Bypass C:\Users\Public\Desktop\install-updates.ps1</CommandLine>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <Order>9</Order>
-                    <Description>Installs Windows Updates</Description>
-                    <CommandLine></CommandLine>
+                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Public\Desktop\custom_data\install-updates.ps1"</CommandLine>
                 </SynchronousCommand>
 			</FirstLogonCommands>
 		</component>
 	</settings>
-
-	<Extensions xmlns="https://schneegans.de/windows/unattend-generator/">
-		<ExtractScript>
-param(
-    [xml] $Document
-);
-
-foreach( $file in $Document.unattend.Extensions.File ) {
-    $path = [System.Environment]::ExpandEnvironmentVariables( $file.GetAttribute( 'path' ) );
-    mkdir -Path( $path | Split-Path -Parent ) -ErrorAction 'SilentlyContinue';
-    $encoding = switch( [System.IO.Path]::GetExtension( $path ) ) {
-        { $_ -in '.ps1', '.xml' } { [System.Text.Encoding]::UTF8; }
-        { $_ -in '.reg', '.vbs', '.js' } { [System.Text.UnicodeEncoding]::new( $false, $true ); }
-        default { [System.Text.Encoding]::Default; }
-    };
-    $bytes = $encoding.GetPreamble() + $encoding.GetBytes( $file.InnerText.Trim() );
-    [System.IO.File]::WriteAllBytes( $path, $bytes );
-}
-		</ExtractScript>
-		<File path="C:\Windows\Setup\Scripts\unattend-01.ps1">
-Write-Host "Downloading all Windows updates...";
-Install-PackageProvider NuGet -Force;
-Register-PSRepository -Default -Verbose
-Set-PSRepository -Name PSGallery -InstallationPolicy Trusted;
-Install-Module PSWindowsUpdate;
-Get-WindowsUpdate -AcceptAll -Install -AutoReboot
-		</File>
-		<File path="C:\Windows\Setup\Scripts\unattend-02.ps1">
-Write-Host "Setting up ssh...";
-Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
-Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
-Get-Service -Name ssh-agent | Set-Service -StartupType Manual
-Start-Service ssh-agent
-Get-Service -Name ssh-agent | Set-Service -StartupType Automatic
-Start-Service sshd
-Get-Service -Name sshd | Set-Service -StartupType Automatic
-New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
-New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -PropertyType String -Force
-wmic UserAccount set PasswordExpires=False
-Powercfg /Change standby-timeout-ac 0
-Powercfg /Change standby-timeout-dc 0
-		</File>
-		<File path="C:\Windows\Setup\Scripts\Specialize.ps1">
-$scripts = @(
-	{
-		reg.exe add "HKLM\SYSTEM\Setup\MoSetup" /v AllowUpgradesWithUnsupportedTPMOrCPU /t REG_DWORD /d 1 /f;
-	};
-	{
-		net.exe accounts /maxpwage:UNLIMITED;
-	};
-	{
-		reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v HiberbootEnabled /t REG_DWORD /d 0 /f;
-	};
-	{
-		reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\BitLocker" /v "PreventDeviceEncryption" /t REG_DWORD /d 1 /f;
-	};
-);
-
-&amp; {
-  [float] $complete = 0;
-  [float] $increment = 100 / $scripts.Count;
-  foreach( $script in $scripts ) {
-    Write-Progress -Activity 'Running scripts to customize your Windows installation. Do not close this window.' -PercentComplete $complete;
-    '*** Will now execute command &#xAB;{0}&#xBB;.' -f $(
-      $str = $script.ToString().Trim() -replace '\s+', ' ';
-      $max = 100;
-      if( $str.Length -le $max ) {
-        $str;
-      } else {
-        $str.Substring( 0, $max - 1 ) + '&#x2026;';
-      }
-    );
-    $start = [datetime]::Now;
-    &amp; $script;
-    '*** Finished executing command after {0:0} ms.' -f [datetime]::Now.Subtract( $start ).TotalMilliseconds;
-    "`r`n" * 3;
-    $complete += $increment;
-  }
-} *&gt;&amp;1 &gt;&gt; "C:\Windows\Setup\Scripts\Specialize.log";
-		</File>
-		<File path="C:\Windows\Setup\Scripts\FirstLogon.ps1">
-$scripts = @(
-	{
-		Set-ItemProperty -LiteralPath 'Registry::HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'AutoLogonCount' -Type 'DWord' -Force -Value 0;
-	};
-	{
-		Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\unattend-01.ps1' -Raw | Invoke-Expression;
-	};
-	{
-		Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\unattend-02.ps1' -Raw | Invoke-Expression;
-	};
-);
-
-&amp; {
-  [float] $complete = 0;
-  [float] $increment = 100 / $scripts.Count;
-  foreach( $script in $scripts ) {
-    Write-Progress -Activity 'Running scripts to finalize your Windows installation. Do not close this window.' -PercentComplete $complete;
-    '*** Will now execute command &#xAB;{0}&#xBB;.' -f $(
-      $str = $script.ToString().Trim() -replace '\s+', ' ';
-      $max = 100;
-      if( $str.Length -le $max ) {
-        $str;
-      } else {
-        $str.Substring( 0, $max - 1 ) + '&#x2026;';
-      }
-    );
-    $start = [datetime]::Now;
-    &amp; $script;
-    '*** Finished executing command after {0:0} ms.' -f [datetime]::Now.Subtract( $start ).TotalMilliseconds;
-    "`r`n" * 3;
-    $complete += $increment;
-  }
-} *&gt;&amp;1 &gt;&gt; "C:\Windows\Setup\Scripts\FirstLogon.log";
-		</File>
-	</Extensions>
-
     <cpi:offlineImage cpi:source="wim:d:/iso/sources/install.wim#Windows 11 Pro" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
 </unattend>

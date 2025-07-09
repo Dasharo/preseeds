@@ -161,12 +161,12 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Public\Desktop\custom_data\standby-timeout.ps1";</CommandLine>
                 </SynchronousCommand>
-                 <SynchronousCommand wcm:action="add">
+                <!-- <SynchronousCommand wcm:action="add">
                     <Order>8</Order>
                     <Description>Install updates</Description>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Public\Desktop\custom_data\install-updates.ps1"</CommandLine>
-                </SynchronousCommand>
+                </SynchronousCommand> -->
 			</FirstLogonCommands>
 		</component>
 	</settings>

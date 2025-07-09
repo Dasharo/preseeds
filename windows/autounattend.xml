@@ -140,7 +140,7 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>5</Order>
-                    <Description>Install Intel NIC drivers
+                    <Description>Install Intel NIC drivers</Description>
                     <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Public\Desktop\custom_data\install_intel_nic_drivers.ps1";</CommandLine>
                 </SynchronousCommand>
 				<SynchronousCommand wcm:action="add">

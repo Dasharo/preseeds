@@ -44,9 +44,11 @@ if [[ ! -f "$ISO_PATH" ]]; then
     wget -O "$ISO_PATH" $ISO_DOWNLOAD_LINK
 fi
 
-# The iso is a hybrid el-torrito iso and the EFI partition is the second
-# partition. Using xorriso '-map' won't work, because it only modifies the
-# first partition, which is not the EFI partition.
+xorriso -indev $ISO_PATH \
+    -outdev $OUTPUT_ISO \
+    -compliance no_emul_toc \
+    -map "fedora/grub-efi.cfg" "EFI/BOOT/grub.cfg" \
+    -boot_image any replay
 
 tmp=$(mktemp -d)
 cp -f $ISO_PATH $OUTPUT_ISO
@@ -68,11 +70,19 @@ sudo mount $LOOPDEV $tmp
 # modify EFI partition
 echo "Modifying EFI partition"
 sudo cp -f fedora/grub-efi.cfg $tmp/EFI/BOOT/grub.cfg
-echo "Done!"
 
-# cleanup
-echo "Removing temporary files..."
 sudo umount $tmp
 sudo losetup -d $LOOPDEV
 rm -rf $tmp
+
+# Modifying the EFI directory on the first partition too.
+# QEMU uses it instead of the EFI partition
+echo "Modifying main partition"
+mv $OUTPUT_ISO $tmp
+xorriso -indev $tmp \
+    -outdev $OUTPUT_ISO \
+    -compliance no_emul_toc \
+    -map "fedora/grub-efi.cfg" "EFI/BOOT/grub.cfg" \
+    -boot_image any replay
+
 echo "Done. Image file saved as: $OUTPUT_ISO"

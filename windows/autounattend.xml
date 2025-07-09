@@ -139,30 +139,30 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
                     <Description>Enable Administrator account</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>3</Order>
+                    <Order>5</Order>
                     <Description>Install Intel NIC drivers
                     <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Public\Desktop\custom_data\install_intel_nic_drivers.ps1";</CommandLine>
                 </SynchronousCommand>
 				<SynchronousCommand wcm:action="add">
-                    <Order>5</Order>
+                    <Order>6</Order>
 					<Description>Allow executing scripts</Description>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>powershell.exe -Command "Set-ExecutionPolicy RemoteSigned -Force -Scope CurrentUser"</CommandLine>
                 </SynchronousCommand>
 				<SynchronousCommand wcm:action="add">
-                    <Order>6</Order>
+                    <Order>7</Order>
                     <Description>Set up SSH</Description>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Public\Desktop\custom_data\setup-ssh.ps1";</CommandLine>
                 </SynchronousCommand>
 				<SynchronousCommand wcm:action="add">
-                    <Order>7</Order>
+                    <Order>8</Order>
                     <Description>Prevent sleep</Description>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Public\Desktop\custom_data\standby-timeout.ps1";</CommandLine>
                 </SynchronousCommand>
                 <!-- <SynchronousCommand wcm:action="add">
-                    <Order>8</Order>
+                    <Order>9</Order>
                     <Description>Install updates</Description>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Public\Desktop\custom_data\install-updates.ps1"</CommandLine>

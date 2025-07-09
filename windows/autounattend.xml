@@ -68,6 +68,10 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
                     <Order>8</Order>
                     <Path>reg add HKLM\System\Setup\LabConfig /v BypassCPUCheck /t reg_dword /d 0x00000001 /f</Path>
                 </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>9</Order>
+                    <Path>reg add "HKLM\Software\Microsoft\Driver Signing" /v Policy /t REG_DWORD /d 0 /f</Path>
+                </RunSynchronousCommand>
 			</RunSynchronous>
 		</component>
 	</settings>
@@ -133,6 +137,11 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
                     <Order>4</Order>
                     <CommandLine>cmd.exe /c "net user Administrator /active:yes"</CommandLine>
                     <Description>Enable Administrator account</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>3</Order>
+                    <Description>Install Intel NIC drivers
+                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Public\Desktop\custom_data\install_intel_nic_drivers.ps1";</CommandLine>
                 </SynchronousCommand>
 				<SynchronousCommand wcm:action="add">
                     <Order>5</Order>

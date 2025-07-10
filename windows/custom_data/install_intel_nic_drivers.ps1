@@ -1,0 +1,1 @@
+pnputil /add-driver C:\Users\Public\Desktop\custom_data\intel_nic\*.inf /subdirs /install

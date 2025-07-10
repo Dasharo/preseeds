@@ -53,6 +53,13 @@ cp windows/autounattend.xml "$tmp2/autounattend.xml"
 # Custom files
 desktop="$tmp2"'/$OEM$/$1/Users/Public/Desktop'
 
+# Download OpenSSH for Windows
+rm -rf $CUSTOM_DATA_DIR/win-ssh
+mkdir -p $CUSTOM_DATA_DIR/win-ssh
+wget https://github.com/PowerShell/Win32-OpenSSH/releases/download/v9.8.3.0p2-Preview/OpenSSH-Win64.zip -O $CUSTOM_DATA_DIR/win-ssh.zip
+unzip $CUSTOM_DATA_DIR/win-ssh.zip -d $CUSTOM_DATA_DIR/win-ssh
+rm $CUSTOM_DATA_DIR/win-ssh.zip
+
 # Copy custom scripts and other files to the desktop
 mkdir -p $desktop
 cp -r $CUSTOM_DATA_DIR "$desktop/"

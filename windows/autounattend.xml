@@ -138,35 +138,29 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
                     <CommandLine>cmd.exe /c &quot;net user Administrator /active:yes&quot;</CommandLine>
                     <Description>Enable Administrator account</Description>
                 </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>5</Order>
-                    <Description>Install Intel NIC drivers</Description>
-                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File &quot;C:\Users\Public\Desktop\custom_data\install_intel_nic_drivers.ps1&quot; *> C:\Users\Public\Desktop\custom_data\install_intel_nic_drivers.log;</CommandLine>
-                </SynchronousCommand>
 				<SynchronousCommand wcm:action="add">
-                    <Order>6</Order>
+                    <Order>5</Order>
 					<Description>Allow executing scripts</Description>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>powershell.exe -Command &quot;Set-ExecutionPolicy RemoteSigned -Force -Scope CurrentUser&quot; *> C:\Users\Public\Desktop\custom_data\execution-policy.log</CommandLine>
+                    <CommandLine>powershell.exe -Command Set-ExecutionPolicy RemoteSigned -Force -Scope CurrentUser *> C:\Users\Public\Desktop\custom_data\execution-policy.log</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>6</Order>
+                    <Description>Install Intel NIC drivers</Description>
+                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\Public\Desktop\custom_data\install_intel_nic_drivers.ps1 *> C:\Users\Public\Desktop\custom_data\install_intel_nic_drivers.log;</CommandLine>
                 </SynchronousCommand>
 				<SynchronousCommand wcm:action="add">
                     <Order>7</Order>
                     <Description>Set up SSH</Description>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File &quot;C:\Users\Public\Desktop\custom_data\setup-ssh.ps1&quot; *> C:\Users\Public\Desktop\custom_data\setup-ssh.log ;</CommandLine>
-                </SynchronousCommand>
+                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\Public\Desktop\custom_data\setup-ssh.ps1 *> C:\Users\Public\Desktop\custom_data\setup-ssh.log ;</CommandLine>
+				</SynchronousCommand>
 				<SynchronousCommand wcm:action="add">
                     <Order>8</Order>
                     <Description>Prevent sleep</Description>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File &quot;C:\Users\Public\Desktop\custom_data\standby-timeout.ps1&quot; *> C:\Users\Public\Desktop\custom_data\standby-timeout.log ;</CommandLine>
+                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\Public\Desktop\custom_data\standby-timeout.ps1 *> C:\Users\Public\Desktop\custom_data\standby-timeout.log ;</CommandLine>
                 </SynchronousCommand>
-                <!-- <SynchronousCommand wcm:action="add">
-                    <Order>9</Order>
-                    <Description>Install updates</Description>
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File &quot;C:\Users\Public\Desktop\custom_data\install-updates.ps1&quot;</CommandLine>
-                </SynchronousCommand> -->
 			</FirstLogonCommands>
 		</component>
 	</settings>

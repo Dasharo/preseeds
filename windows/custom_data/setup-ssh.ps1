@@ -1,6 +1,6 @@
 Write-Host "Setting up ssh...";
 Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
-Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+& "C:\Users\Public\Desktop\custom_data\win-ssh\OpenSSH-Win64\install-sshd.ps1"
 Get-Service -Name ssh-agent | Set-Service -StartupType Manual
 Start-Service ssh-agent
 Get-Service -Name ssh-agent | Set-Service -StartupType Automatic

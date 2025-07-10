@@ -50,13 +50,8 @@ rm -rf "$tmp"
 # Copy custom autounattend.xml
 cp windows/autounattend.xml "$tmp2/autounattend.xml"
 
-
 # Custom files
 desktop="$tmp2"'/$OEM$/$1/Users/Public/Desktop'
-
-# Copy drivers from protectli-docs
-# git clone git@github.com:Dasharo/protectli-docs
-cp -r protectli-docs/SDIO/drivers $CUSTOM_DATA_DIR
 
 # Copy custom scripts and other files to the desktop
 mkdir -p $desktop

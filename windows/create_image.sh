@@ -5,7 +5,7 @@ OUTPUT_ISO="windows-auto.iso"
 ISO_PATH="${ISO_PATH:-windows.iso}"
 CUSTOM_DATA_DIR="windows/custom_data"
 
-while getopts "hi:o" arg; do
+while getopts "hi:oc" arg; do
     case "${arg}" in
         h)
             echo "This script builds a custom automatic install Windows ISO."
@@ -14,6 +14,7 @@ while getopts "hi:o" arg; do
             echo "    -h            shows help"
             echo "    -i path       path to the Windows ISO file"
             echo "    -o file_name  output ISO filename"
+            echo "    -c            does a clean image, re-downloads all dependencies."
             exit 0
             ;;
         i)
@@ -27,12 +28,41 @@ while getopts "hi:o" arg; do
         o)
             OUTPUT_ISO=$OPTARG
             ;;
+        c)
+            rm -rf $CUSTOM_DATA_DIR/intel_nic
+            rm -rf $CUSTOM_DATA_DIR/win-ssh
+            ;;
         *)
             echo "Unrecognized argument. Unetwork in windows on qemuse -h to get help"
             exit 3
             ;;
     esac
 done
+
+if [[ ! -d $CUSTOM_DATA_DIR/win-ssh ]]; then
+    echo "Downloading OpenSSH for Windows"
+    mkdir -p $CUSTOM_DATA_DIR/win-ssh
+    wget https://github.com/PowerShell/Win32-OpenSSH/releases/download/v9.8.3.0p2-Preview/OpenSSH-Win64.zip \
+        -O $CUSTOM_DATA_DIR/win-ssh.zip
+    unzip $CUSTOM_DATA_DIR/win-ssh.zip -d $CUSTOM_DATA_DIR/win-ssh
+    rm $CUSTOM_DATA_DIR/win-ssh.zip
+else
+    echo "Using local copy of OpenSSH for Windows. The contents are not being verified"
+fi
+
+if [[ ! -d $CUSTOM_DATA_DIR/intel_nic ]]; then
+    echo "Downloading Intel NIC Driverpack"
+    mkdir -p $CUSTOM_DATA_DIR/intel_nic
+    wget https://downloadmirror.intel.com/845333/Release_30.0.zip \
+        -O $CUSTOM_DATA_DIR/intel_drivers.zip
+    unzip $CUSTOM_DATA_DIR/intel_drivers.zip -d $CUSTOM_DATA_DIR/intel_nic/
+    rm -rf $CUSTOM_DATA_DIR/intel_drivers.zip
+    # Removing broken drivers
+    rm -rf $CUSTOM_DATA_DIR/intel_nic/PRO1000
+    rm -rf $CUSTOM_DATA_DIR/intel_nic/PROXGB
+else
+    echo "Using local copy of Intel NIC drivers. The contents are not being verified"
+fi
 
 tmp=$(mktemp -d)
 tmp2="$OUTPUT_ISO"_tmp
@@ -50,15 +80,8 @@ rm -rf "$tmp"
 # Copy custom autounattend.xml
 cp windows/autounattend.xml "$tmp2/autounattend.xml"
 
-# Custom files
+# Placing the files on public desktop before users are created
 desktop="$tmp2"'/$OEM$/$1/Users/Public/Desktop'
-
-# Download OpenSSH for Windows
-rm -rf $CUSTOM_DATA_DIR/win-ssh
-mkdir -p $CUSTOM_DATA_DIR/win-ssh
-wget https://github.com/PowerShell/Win32-OpenSSH/releases/download/v9.8.3.0p2-Preview/OpenSSH-Win64.zip -O $CUSTOM_DATA_DIR/win-ssh.zip
-unzip $CUSTOM_DATA_DIR/win-ssh.zip -d $CUSTOM_DATA_DIR/win-ssh
-rm $CUSTOM_DATA_DIR/win-ssh.zip
 
 # Copy custom scripts and other files to the desktop
 mkdir -p $desktop

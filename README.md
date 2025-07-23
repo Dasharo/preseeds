@@ -23,21 +23,23 @@ $ python -m http.server 8080
 * Install Windows first because the automatic installer cleans the entire disk
 * Download the newest Windows Disk Image (ISO) from [official
   website](https://www.microsoft.com/en-us/software-download/)
-* Use [WoeUSB](https://github.com/WoeUSB/WoeUSB) to make a bootable USB, then
-the USB can be modified under Linux. Example command:
+* Run `windows/create_image.sh` giving the path to the downloaded iso as `-i`
+parameter
+* Use [WoeUSB](https://github.com/WoeUSB/WoeUSB) to make a bootable USB from the
+resulting automatic windows installer iso. Example command:
     ```bash
-    sudo woeusb --device Win11_23H2_EnglishInternational_x64v2.iso /dev/sd[drive letter]
+    sudo woeusb --device windows-auto.iso /dev/sd[drive letter]
     ```
-* Copy [autounattend.xml](./windows/autounattend.xml) to bootable USB disk
 * Insert the USB into the platform and boot from the USB
 * Windows will install automatically and configure
 * If there are any problems during installation, you can make sure all steps
   have been completed by manually running the files
-  [setup-ssh.ps1](./windows/setup-ssh.ps1) and
-  [install-updates.ps1](./windows/install-updates.ps1)
+  [setup-ssh.ps1](./windows/custom-data/setup-ssh.ps1) and
+  [install_intel_nic_drivers.ps1](./windows/custom_data/install_intel_nic_drivers.ps1)
+  [standby_timeout.ps1](./windows/custom_data/standby_timeout.ps1)
+  [install-updates.ps1](./windows/custom_data/install-updates.ps1)
     ```powershell
-    PowerShell.exe -ExecutionPolicy UnRestricted -File .\setup-ssh.ps1
-    PowerShell.exe -ExecutionPolicy UnRestricted -File .\install-updates.ps1
+    PowerShell.exe -ExecutionPolicy UnRestricted -File C:\Users\Public\Desktop\custom_data\<script_name>
     ```
 
 > If for some reason you want to upgrade to the latest version, Windows update

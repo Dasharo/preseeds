@@ -1,0 +1,1 @@
+Set-LocalUser -Name "user" -PasswordNeverExpires 1

@@ -161,6 +161,12 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\Public\Desktop\custom_data\standby-timeout.ps1 *> C:\Users\Public\Desktop\custom_data\standby-timeout.log ;</CommandLine>
                 </SynchronousCommand>
+				<SynchronousCommand wcm:action="add">
+                    <Order>9</Order>
+                    <Description>Disable user password expiration</Description>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\Public\Desktop\custom_data\disable-password-expiration.ps1 *> C:\Users\Public\Desktop\custom_data\disable-password-expiration.log ;</CommandLine>
+                </SynchronousCommand>
 			</FirstLogonCommands>
 		</component>
 	</settings>

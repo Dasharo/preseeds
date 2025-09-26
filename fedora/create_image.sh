@@ -44,6 +44,11 @@ if [[ ! -f "$ISO_PATH" ]]; then
     wget -O "$ISO_PATH" $ISO_DOWNLOAD_LINK
 fi
 
+if [[ -f $OUTPUT_ISO ]]; then
+    echo "$OUTPUT_ISO already exists, replacing the file."
+    rm -f "$OUTPUT_ISO"
+fi
+
 xorriso -indev $ISO_PATH \
     -outdev $OUTPUT_ISO \
     -compliance no_emul_toc \

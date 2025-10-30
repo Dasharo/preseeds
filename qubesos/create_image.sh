@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-QUBES_VERSION="R4.2.4"
+QUBES_VERSION="R4.3.0-rc3"
 ISO_DOWNLOAD_LINK="https://mirrors.edge.kernel.org/qubes/iso/Qubes-${QUBES_VERSION}-x86_64.iso"
 OUTPUT_ISO="qubesos-auto-${QUBES_VERSION}.iso"
-ISO_PATH="${ISO_PATH:-qubesos.iso}"
+ISO_PATH="${ISO_PATH:-qubesos_${QUBES_VERSION}.iso}"
 
 while getopts "hi:o" arg; do
     case "${arg}" in

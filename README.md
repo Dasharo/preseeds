@@ -124,6 +124,59 @@ Show help
 ./fedora/create-image.sh -h
 ```
 
+
+### QubesOS
+
+`qubesos/create_image.sh` script downloads the QubesOS iso and replaces
+the `grub.cfg` with `qubesos/grub-efi.cfg`. The modified iso can be written
+onto a flash drive and used as an installation media.
+
+__Important__
+Currently [fully unattended installations are not possible](https://github.com/QubesOS/qubes-issues/issues/10381).
+The installer will require the user to apply the default post-install
+configuration settings in order to continue with the second part of
+installation.
+
+The installer sets up an SSH tunnel from `net-vm` to `dom0` allowing for
+automated tests via SSH.
+
+The installer **ONLY** installs QubesOS on `nvme0n1` drive.
+It is enough for the day of writing the documentation, as only laptops with
+single nvme drive support QubesOS. Should that change, the `qubesos/ks.cfg`
+would need to include a script that detects the available drives,
+like in https://github.com/Nitrokey/qubes-oem/blob/main/ks_template.cfg.
+
+The installer does not override other OSes installed on the `nvme0n1` drive and
+only uses ~80 GiB of disk space while leaving the rest free, so it can be
+installed along other OSes in any order.
+
+#### Example usage
+
+Downloads QubesOS and modifies the iso
+
+```bash
+./qubesos/create-image.sh
+```
+
+Modifies the iso given as an argument. The script looks for `qubesos-${QUBES_VERSION}.iso` (`qubesos-R4.3.0-rc3.iso`) by default.
+Downloads the iso if the file is not found.
+
+```bash
+./qubesos/create-image.sh -i qubesos-R4.3.0-rc3.iso
+```
+
+Save the modified iso to given path. The default output file name is `qubesos-auto-{version}.iso`
+
+```bash
+./qubesos/create-image.sh -o qubesos-auto-R4.3.0-rc3.iso
+```
+
+Show help
+
+```bash
+./qubesos/create-image.sh -h
+```
+
 ### Debian
 
 Debian preseeds are located in the `debian/` directory.

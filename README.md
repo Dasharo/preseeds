@@ -155,26 +155,26 @@ installed along other OSes in any order.
 Downloads QubesOS and modifies the iso
 
 ```bash
-./qubesos/create-image.sh
+./qubesos/create_image.sh
 ```
 
 Modifies the iso given as an argument. The script looks for `qubesos-${QUBES_VERSION}.iso` (`qubesos-R4.3.0-rc3.iso`) by default.
 Downloads the iso if the file is not found.
 
 ```bash
-./qubesos/create-image.sh -i qubesos-R4.3.0-rc3.iso
+./qubesos/create_image.sh -i qubesos-R4.3.0-rc3.iso
 ```
 
 Save the modified iso to given path. The default output file name is `qubesos-auto-{version}.iso`
 
 ```bash
-./qubesos/create-image.sh -o qubesos-auto-R4.3.0-rc3.iso
+./qubesos/create_image.sh -o qubesos-auto-R4.3.0-rc3.iso
 ```
 
 Show help
 
 ```bash
-./qubesos/create-image.sh -h
+./qubesos/create_image.sh -h
 ```
 
 ### Debian

@@ -173,6 +173,12 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\Public\Desktop\custom_data\disable-recovery.ps1 *> C:\Users\Public\Desktop\custom_data\disable-recovery.log ;</CommandLine>
                 </SynchronousCommand>
+				<SynchronousCommand wcm:action="add">
+                    <Order>11</Order>
+                    <Description>Enable hibernation</Description>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\Public\Desktop\custom_data\enable-hibernation.ps1 *> C:\Users\Public\Desktop\custom_data\enable-hibernation.log ;</CommandLine>
+                </SynchronousCommand>
 			</FirstLogonCommands>
 		</component>
 	</settings>

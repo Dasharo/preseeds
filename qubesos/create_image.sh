@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-QUBES_VERSION="R4.3.0-rc3"
+QUBES_VERSION="R4.3.0"
 ISO_DOWNLOAD_LINK="https://mirrors.edge.kernel.org/qubes/iso/Qubes-${QUBES_VERSION}-x86_64.iso"
 OUTPUT_ISO="qubesos-auto-${QUBES_VERSION}.iso"
 ISO_PATH="${ISO_PATH:-qubesos_${QUBES_VERSION}.iso}"

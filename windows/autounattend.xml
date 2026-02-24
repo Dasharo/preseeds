@@ -41,7 +41,7 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
 				<!-- PRIMARY -->
 				<RunSynchronousCommand wcm:action="add">
 					<Order>2</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\diskpart.txt" (echo CREATE PARTITION PRIMARY SIZE=61440&amp;echo FORMAT QUICK FS=NTFS LABEL="Windows"&amp;echo CREATE PARTITION PRIMARY SIZE=1024&amp;echo FORMAT QUICK FS=NTFS LABEL="Recovery")"</Path>
+					<Path>cmd.exe /c "&gt;&gt;"X:\diskpart.txt" (echo CREATE PARTITION PRIMARY SIZE=102400&amp;echo FORMAT QUICK FS=NTFS LABEL="Windows"&amp;echo CREATE PARTITION PRIMARY SIZE=1024&amp;echo FORMAT QUICK FS=NTFS LABEL="Recovery")"</Path>
 				</RunSynchronousCommand>
 				<RunSynchronousCommand wcm:action="add">
 					<Order>3</Order>

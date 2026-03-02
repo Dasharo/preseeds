@@ -1,145 +1,102 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
 
-UBUNTU_VERSION="22.04.4"
-ISO_DOWNLOAD_LINK="https://ubuntu.task.gda.pl/ubuntu-releases/${UBUNTU_VERSION}/ubuntu-${UBUNTU_VERSION}-desktop-amd64.iso"
-SCRIPTDIR=$(readlink -f $(dirname "$0"))
-PARTITIONING_PRESEED="$SCRIPTDIR/partitioning.cfg"
-MAIN_PRESEED="$SCRIPTDIR/main.cfg"
-OUTPUT_ISO="ubuntu-auto-${UBUNTU_VERSION}.iso"
-ISO_PATH="${ISO_PATH:-ubuntu.iso}"
-ISO_EXTR_PATH=""
-PARTITIONING=1
+UBUNTU_VERSION="25.10"
+ISO_NAME="ubuntu-${UBUNTU_VERSION}-desktop-amd64.iso"
+ISO_URL="https://ubuntu.task.gda.pl/ubuntu-releases/${UBUNTU_VERSION}/${ISO_NAME}"
+OUTPUT_ISO="ubuntu-${UBUNTU_VERSION}-autoinstall.iso"
 
-while getopts "hi:e:o:p" arg; do
-    case "${arg}" in
-        h)
-            echo "This script automatically downloads Ubuntu release
-${UBUNTU_VERSION}, extracts it, injects preseeds and packages the new
-iso image. General preseed configuration can be found in
-the ubuntu/main.cfg file, if necessary, it can be edited."
-            echo "Help:"
-            echo "    -h            shows help"
-            echo "    -p            make custom PARTITIONING during \
-the installation"
-            echo "    -i path       point the location of installation \
-iso instead of downloading it"
-            echo "    -e path       point the location of extracted iso"
-            echo "    -o file_name  specify the output filename"
-            exit 0
-            ;;
-        i)
-            if ! [ -f "$OPTARG" ]; then
-                echo "Image given does not exist: $OPTARG"
-                exit 1
-            else
-                ISO_PATH=$OPTARG
-            fi
-            ;;
-        e)
-            if ! [ -d "$OPTARG" ]; then
-                echo "Directory $OPTARG does not exist"
-                exit 2
-            else
-                ISO_EXTR_PATH=$OPTARG
-            fi
-            ;;
-        o)
-            OUTPUT_ISO=$OPTARG
-            ;;
-        p)
-            PARTITIONING=0
-            ;;
-        *)
-            echo "Unrecognized argument. Use -h to get help"
-            exit 3
-            ;;
-    esac
-done
+SCRIPTDIR=$(readlink -f "$(dirname "$0")")
+USER_DATA="$SCRIPTDIR/user-data"
+META_DATA="$SCRIPTDIR/meta-data"
 
-# check prerequisities
-if ! xorriso --version &> /dev/null
-then
-    echo "xorriso could not be found"
-    exit 4
+WORKDIR=$(mktemp -d)
+GRUB_TMP="$WORKDIR/grub"
+
+cleanup() {
+    rm -rf "$WORKDIR"
+}
+trap cleanup EXIT
+
+require() {
+    command -v "$1" >/dev/null || { echo "Missing $1"; exit 1; }
+}
+
+require xorriso
+require sed
+require wget
+
+[[ -f "$USER_DATA" ]] || { echo "Missing user-data"; exit 1; }
+[[ -f "$META_DATA" ]] || { echo "Missing meta-data"; exit 1; }
+
+echo "Downloading ISO if needed..."
+if [[ ! -f "$ISO_NAME" ]]; then
+    wget -O "$ISO_NAME" "$ISO_URL"
 fi
 
+echo "Copying ISO..."
+cp "$ISO_NAME" "$OUTPUT_ISO"
 
-# prepare temp folder
+mkdir -p "$GRUB_TMP"
 
-tmpdir=$(mktemp -d)
+echo "Extracting grub configs..."
+xorriso -osirrox on -indev "$OUTPUT_ISO" \
+    -extract /boot/grub/grub.cfg "$GRUB_TMP/grub.cfg" \
+    -extract /boot/grub/loopback.cfg "$GRUB_TMP/loopback.cfg"
 
-# download iso image
-if [[ ! -f "$ISO_PATH" ]]; then
-    echo "Downloading Ubuntu Desktop ${UBUNTU_VERSION} image..."
-    wget -O "$ISO_PATH" $ISO_DOWNLOAD_LINK
-fi
+echo "Patching grub for autoinstall..."
 
-# extract iso contents
-if [[ $ISO_EXTR_PATH == "" ]]; then
-    echo "Extracting iso contents..."
-    ISO_EXTR_PATH="$tmpdir/extracted"
-    xorriso -osirrox on -indev "$ISO_PATH" -extract / "$ISO_EXTR_PATH" #&>/dev/null
-    # make iso contents modifiable
-    chmod -R u+w "$ISO_EXTR_PATH"
-fi
+sed -i 's@quiet splash@quiet splash autoinstall ds=nocloud\\;s=/cdrom/nocloud/@g' \
+    "$GRUB_TMP/grub.cfg"
 
-# set up kernel to use preseed and serial port
-sed -i -e 's@file=/cdrom/preseed/ubuntu.seed maybe-ubiquity quiet splash@file=/cdrom/preseed/ubuntu.seed iso-scan/filename=${iso_path} auto=true priority=critical boot=casper automatic-ubiquity splash noprompt noshell console=tty0 console=ttyS0,115200n8@g' "$ISO_EXTR_PATH/boot/grub/grub.cfg"
-sed -i -e 's@file=/cdrom/preseed/ubuntu.seed maybe-ubiquity iso-scan/filename=${iso_path} quiet splash@file=/cdrom/preseed/ubuntu.seed iso-scan/filename=${iso_path} auto=true priority=critical boot=casper automatic-ubiquity splash noprompt noshell console=tty0 console=ttyS0,115200n8@g' "$ISO_EXTR_PATH/boot/grub/loopback.cfg"
-sed -i 's/Try or Install Ubuntu/Perform automatic installation/' "$ISO_EXTR_PATH/boot/grub/grub.cfg"
+sed -i 's@quiet splash@quiet splash autoinstall ds=nocloud\\;s=/cdrom/nocloud/@g' \
+    "$GRUB_TMP/loopback.cfg"
 
-# inject preseed
-echo "Injecting preseed..."
-# preseed PARTITIONING only if argument -p was not given
-if [ $PARTITIONING -eq 1 ]; then
-    cat $PARTITIONING_PRESEED >> "$ISO_EXTR_PATH/preseed/ubuntu.seed"
-fi
-cat $MAIN_PRESEED >> "$ISO_EXTR_PATH/preseed/ubuntu.seed"
+echo "Injecting NoCloud data (in-place)..."
 
-# update checksums
-echo "Updating checksums..."
-md5=$(md5sum "$ISO_EXTR_PATH/boot/grub/grub.cfg" | cut -f1 -d ' ')
-echo "$md5  ./boot/grub/grub.cfg" > "$ISO_EXTR_PATH//md5sum.txt"
-md5=$(md5sum "$ISO_EXTR_PATH/boot/grub/loopback.cfg" | cut -f1 -d ' ')
-echo "$md5  ./boot/grub/loopback.cfg" >> "$ISO_EXTR_PATH//md5sum.txt"
+xorriso \
+  -indev "$OUTPUT_ISO" \
+  -outdev "$OUTPUT_ISO" \
+  -boot_image any keep \
+  -map "$USER_DATA" /nocloud/user-data \
+  -map "$META_DATA" /nocloud/meta-data \
+  -map "$GRUB_TMP/grub.cfg" /boot/grub/grub.cfg \
+  -map "$GRUB_TMP/loopback.cfg" /boot/grub/loopback.cfg
 
-# fetch partitioning data from iso
-dd if=$ISO_PATH bs=1 count=432 of="$tmpdir/boot_hybrid.img"
-EFI_START=$(xorriso -indev ${ISO_PATH} -report_system_area 2> /dev/null | grep "GPT start and size :   2" | cut -d ' ' -f 10)
-EFI_SIZE=$(xorriso -indev ${ISO_PATH} -report_system_area 2> /dev/null | grep "GPT start and size :   2" | cut -d ' ' -f 12)
-dd if=$ISO_PATH bs=512 skip=${EFI_START} count=${EFI_SIZE} of="$tmpdir/efi.img"
+echo "Updating md5sum..."
 
-# fetch Vulume Creation Date
-CREATION_DATE="$(dd if=$ISO_PATH bs=1 skip=33581 count=17 2>/dev/null | hexdump -e  "16 \"%_p\" \"\\n\"" | head -n1)"
+MD5TMP="$WORKDIR/md5"
+mkdir -p "$MD5TMP"
 
-# save modification to new iso file
-echo "Saving modified iso..."
-xorriso -as mkisofs -r \
--V 'Ubuntu Auto Installer' \
--o $OUTPUT_ISO \
---modification-date="${CREATION_DATE}" \
---grub2-mbr "$tmpdir/boot_hybrid.img" \
---protective-msdos-label \
--partition_cyl_align off \
--partition_offset 16 \
---mbr-force-bootable \
--append_partition 2 28732ac11ff8d211ba4b00a0c93ec93b "$tmpdir/efi.img" \
--appended_part_as_gpt \
--iso_mbr_part_type a2a0d0ebe5b9334487c068b6b72699c7 \
--c '/boot.catalog' \
--b '/boot/grub/i386-pc/eltorito.img' \
--no-emul-boot \
--boot-load-size 4 \
--boot-info-table \
---grub2-boot-info \
--eltorito-alt-boot \
--e '--interval:appended_partition_2_start_2403365s_size_10068d:all::' \
--no-emul-boot \
--boot-load-size ${EFI_SIZE} \
-$ISO_EXTR_PATH
+# extract file list
+xorriso -indev "$OUTPUT_ISO" \
+        -find / -type f \
+        -exec lsdl \
+        | awk '{print $NF}' \
+        | sed 's:^/::' \
+        | grep -v '^md5sum.txt$' \
+        > "$MD5TMP/files.txt"
 
-echo "Removing temporary files..."
-rm -rf $tmpdir
-echo "Done. Image file saved as: $OUTPUT_ISO"
+# extract files
+mkdir -p "$MD5TMP/root"
+
+while read -r f; do
+    mkdir -p "$MD5TMP/root/$(dirname "$f")"
+    xorriso -osirrox on -indev "$OUTPUT_ISO" \
+        -extract "/$f" "$MD5TMP/root/$f" >/dev/null 2>&1
+done < "$MD5TMP/files.txt"
+
+# compute md5
+(
+cd "$MD5TMP/root"
+find . -type f -print0 | xargs -0 md5sum | sed 's|\./||'
+) > "$MD5TMP/md5sum.txt"
+
+# inject back
+xorriso -indev "$OUTPUT_ISO" \
+        -outdev "$OUTPUT_ISO" \
+        -boot_image any keep \
+        -map "$MD5TMP/md5sum.txt" /md5sum.txt
+
+echo ""
+echo "Done: $OUTPUT_ISO ready"

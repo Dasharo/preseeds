@@ -41,7 +41,7 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
 				<!-- PRIMARY -->
 				<RunSynchronousCommand wcm:action="add">
 					<Order>2</Order>
-					<Path>cmd.exe /c "&gt;&gt;"X:\diskpart.txt" (echo CREATE PARTITION PRIMARY SIZE=61440&amp;echo FORMAT QUICK FS=NTFS LABEL="Windows"&amp;echo CREATE PARTITION PRIMARY SIZE=1024&amp;echo FORMAT QUICK FS=NTFS LABEL="Recovery")"</Path>
+					<Path>cmd.exe /c "&gt;&gt;"X:\diskpart.txt" (echo CREATE PARTITION PRIMARY SIZE=102400&amp;echo FORMAT QUICK FS=NTFS LABEL="Windows"&amp;echo CREATE PARTITION PRIMARY SIZE=1024&amp;echo FORMAT QUICK FS=NTFS LABEL="Recovery")"</Path>
 				</RunSynchronousCommand>
 				<RunSynchronousCommand wcm:action="add">
 					<Order>3</Order>
@@ -166,6 +166,18 @@ https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILang
                     <Description>Disable user password expiration</Description>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\Public\Desktop\custom_data\disable-password-expiration.ps1 *> C:\Users\Public\Desktop\custom_data\disable-password-expiration.log ;</CommandLine>
+                </SynchronousCommand>
+				<SynchronousCommand wcm:action="add">
+                    <Order>10</Order>
+                    <Description>Disable recovery</Description>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\Public\Desktop\custom_data\disable-recovery.ps1 *> C:\Users\Public\Desktop\custom_data\disable-recovery.log ;</CommandLine>
+                </SynchronousCommand>
+				<SynchronousCommand wcm:action="add">
+                    <Order>11</Order>
+                    <Description>Enable hibernation</Description>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\Public\Desktop\custom_data\enable-hibernation.ps1 *> C:\Users\Public\Desktop\custom_data\enable-hibernation.log ;</CommandLine>
                 </SynchronousCommand>
 			</FirstLogonCommands>
 		</component>
